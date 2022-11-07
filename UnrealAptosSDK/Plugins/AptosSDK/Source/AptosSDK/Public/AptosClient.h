@@ -3,6 +3,7 @@
 #include "AnkrClientBase.h"
 #include "AptosClient.generated.h"
 
+/// AptosClient provides various functions that are used to interact with the Aptos blockchain.
 UCLASS(Blueprintable, BlueprintType)
 class APTOSSDK_API UAptosClient : public UAnkrClientBase
 {
@@ -10,8 +11,14 @@ class APTOSSDK_API UAptosClient : public UAnkrClientBase
 
 public:
 
+	/// GetAccount function retrieves high level information about an account such as its sequence number and authentication key.
+	///
+	/// @param _address An ABI string of a contract.
+	/// @param Result A callback delegate that will be triggered once a response is received.
+	///
+	/// @note Returns a 404 if the account doesn't exist.
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
-	void GetAccount(FString _address, FString _ledger_version, const FAnkrCallCompleteDynamicDelegate& Result);
+	void GetAccount(FString _address, FString _ledger_version, const FAnkrCallCompleteDynamicDelegate& _result);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void GetAccountResources(FString _address, FString _qledger_version, const FAnkrCallCompleteDynamicDelegate& Result);

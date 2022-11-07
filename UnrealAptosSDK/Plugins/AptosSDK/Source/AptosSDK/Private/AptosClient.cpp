@@ -1,7 +1,9 @@
 #include "AptosClient.h"
 #include "PayloadBuilder.h"
+#include "AptosSchemas.h"
 
-UAptosClient::UAptosClient(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+UAptosClient::UAptosClient(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) 
+{}
 
 void UAptosClient::GetAccount(FString _address, FString _qledger_version, const FAnkrCallCompleteDynamicDelegate& Result)
 {
@@ -142,7 +144,13 @@ void UAptosClient::GetLedgerInfo(const FAnkrCallCompleteDynamicDelegate& Result)
 	SendRequest(url, "GET", "", [this](const TArray<uint8> bytes, const FString content, const FAnkrCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetAccount: %s"), *content);
-			callback.ExecuteIfBound(content, "", "", -1, false);
+
+			FIndexResponse output;
+			FJsonObjectConverter::JsonObjectStringToUStruct(content, &output);
+
+			FString json;
+			FJsonObjectConverter::UStructToJsonObjectString(output, json);
+			callback.ExecuteIfBound(json, "", "", -1, false);
 
 		}, Result, false);
 }
