@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AnkrClientBase.h"
+#include "AptosSchemas.h"
 #include "AptosClient.generated.h"
 
 /// AptosClient provides various functions that are used to interact with the Aptos blockchain.
@@ -11,12 +12,6 @@ class APTOSSDK_API UAptosClient : public UAnkrClientBase
 
 public:
 
-	/// GetAccount function retrieves high level information about an account such as its sequence number and authentication key.
-	///
-	/// @param _address An ABI string of a contract.
-	/// @param Result A callback delegate that will be triggered once a response is received.
-	///
-	/// @note Returns a 404 if the account doesn't exist.
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void GetAccount(FString _address, FString _ledger_version, const FAnkrCallCompleteDynamicDelegate& _result);
 
@@ -60,7 +55,7 @@ public:
 	void GetTransactions(int _qlimit, FString _qstart, const FAnkrCallCompleteDynamicDelegate& Result);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
-	void SubmitTransactions(FString _bsender, FString _bsequence_number, FString _bmax_gas_amount, FString _bgas_unit_price, FString _bexpiration_timestamp_secs, FString _qstart, const FAnkrCallCompleteDynamicDelegate& Result);
+	void SubmitTransactions(FString _bsender, FString _bsequence_number, FString _bmax_gas_amount, FString _bgas_unit_price, FString _bexpiration_timestamp_secs, FString _qstart, FSubmitTransactionRequest _submitTransactionRequest, const FAnkrCallCompleteDynamicDelegate& Result);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void GetTransactionByHash(FString _txn_hash, const FAnkrCallCompleteDynamicDelegate& Result);
@@ -72,5 +67,32 @@ public:
 	void GetAccountTransactions(FString _address, int _plimit, FString _pstart, const FAnkrCallCompleteDynamicDelegate& Result);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void SubmitBatchTransactions(FString _bsender, FString _bsequence_number, FString _bmax_gas_amount, FString _bgas_unit_price, FString _bexpiration_timestamp_secs, const FAnkrCallCompleteDynamicDelegate& Result);
+	
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void SimulateTransactions(FString _bsender, FString _bsequence_number, FString _bmax_gas_amount, FString _bgas_unit_price, FString _bexpiration_timestamp_secs, const FAnkrCallCompleteDynamicDelegate& Result);
+
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void EncodeSubmission(FString _bsender, FString _bsequence_number, FString _bmax_gas_amount, FString _bgas_unit_price, FString _bexpiration_timestamp_secs, FString _type, FString _function, TArray<FString> _type_arguments, TArray<FString> _arguments, const FAnkrCallCompleteDynamicDelegate& Result);
+
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void EstimateGasPrice(const FAnkrCallCompleteDynamicDelegate& Result); 
+
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void CryptoSignKeyPair(FString& _secretKey, FString& _publicKey);
+	
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void CryptoSign(const FString _message, const FString _secretKey, FString& _outSignedMessage);
+	
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void CryptoSignDetach(const FString _message, const FString _secretKey, FString& _outSignature);
+	
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void CryptoSignEd25519SecretKeyToPublicKey(FString& _publicKey, FString _secretKey);
+	
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void CryptoHashSha256(FString _message,FString& _hash);
+
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void RawTransactionTest();
 };

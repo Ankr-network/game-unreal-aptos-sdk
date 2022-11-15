@@ -6,6 +6,9 @@
 #include <JsonObjectConverter.h>
 #include <string>
 #include "AnkrDelegates.h"
+#include "PayloadBuilder.h"
+#include "MathHelper.h"
+#include "../Private/Windows/LibraryManager.h"
 #include "AptosSchemas.generated.h"
 
 USTRUCT(BlueprintType)
@@ -58,7 +61,6 @@ struct FMoveFunction
 	UPROPERTY() TArray<FString> _return;								 // array[string]
 };
 
-
 USTRUCT(BlueprintType)
 struct FCode
 {
@@ -78,16 +80,32 @@ struct FWriteModule
 	UPROPERTY() FCode data;
 };
 
-
 USTRUCT(BlueprintType)
 struct FTransactionPayload
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FString type;					// string
-	UPROPERTY() FString function;				// string
-	UPROPERTY() TArray<FString> type_arguments; // array[string]
-	UPROPERTY() TArray<FString> arguments;		// array[string]
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString type;					// string
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString function;				// string
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") TArray<FString> type_arguments; // array[string]
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") TArray<FString> arguments;		// array[string]
+
+	static std::vector<std::byte> BuildTransactionPayload()
+	{
+		const char* func = "0x1::coin::transfer";
+		const char* typeArgs[1]
+		{
+			"0x1::aptos_coin::AptosCoin"
+		};
+
+		const char* args[2]
+		{
+			"0x65d922ec609ecb1b694ffa502938dd4dff4380de90658a5cee84b67a7e78bcbb",
+			"1000"
+		};
+		std::vector<std::byte> payload = LibraryManager::GetInstance().construct_payload(func, typeArgs, 1, args, 2);
+		return payload;
+	}
 };
 
 USTRUCT(BlueprintType)
@@ -95,7 +113,7 @@ struct FScriptPayload
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FCode code; // object
+	UPROPERTY() FCode code;						// object
 	UPROPERTY() TArray<FString> type_arguments; // array[string]
 	UPROPERTY() TArray<FString> arguments;		// array[string]
 };
@@ -109,8 +127,6 @@ struct FWriteSet
 	UPROPERTY() FString execute_as;    // string<hex>
 	UPROPERTY() FScriptPayload script; // object
 };
-
-
 
 USTRUCT(BlueprintType)
 struct FGenesisPayload
@@ -155,9 +171,9 @@ struct FAccountSignature
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FString type;		// string
-	UPROPERTY() FString public_key; // string<hex>
-	UPROPERTY() FString signature;  // string <hex>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString type;		  // string
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString public_key; // string<hex>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString signature;  // string <hex>
 };
 
 USTRUCT(BlueprintType)
@@ -203,10 +219,6 @@ struct FAptosErrorCode
 	/// These codes provide more granular error information beyond just the HTTP status code of the response.
 	/// Allowed values : account_not_found resource_not_found module_not_found struct_field_not_found version_not_found transaction_not_found table_item_not_found block_not_found version_pruned block_pruned invalid_input invalid_transaction_update sequence_number_too_old vm_error health_check_failed mempool_is_full internal_error web_framework_error bcs_not_supported api_disabled
 };
-
-
-
-
 
 USTRUCT(BlueprintType)
 struct FDecodedTableData
@@ -279,13 +291,13 @@ struct FEncodeSubmissionRequest
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FString sender;					   // string<hex>
-	UPROPERTY() FString sequence_number;		   // string<uint64>
-	UPROPERTY() FString max_gas_amount;			   // string<uint64>
-	UPROPERTY() FString gas_unit_price;			   // string<uint64>
-	UPROPERTY() FString expiration_timestamp_secs; // string<uint64>
-	UPROPERTY() FTransactionPayload payload;	   // object
-	UPROPERTY() TArray<FString> secondary_signers; // array[string]<hex>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString sender;					   // string<hex>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString sequence_number;		   // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString max_gas_amount;			   // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString gas_unit_price;			   // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FString expiration_timestamp_secs; // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") FTransactionPayload payload;	   // object
+	UPROPERTY(BlueprintReadWrite, Category="Aptos") TArray<FString> secondary_signers; // array[string]<hex>
 };
 
 USTRUCT(BlueprintType)
@@ -350,8 +362,6 @@ struct FGasEstimation
 	UPROPERTY() int gas_estimate;				// integer
 	UPROPERTY() int prioritized_gas_estimate;	// integer
 };
-
-
 
 USTRUCT(BlueprintType)
 struct FGenesisPayload_WriteSetPayload
@@ -620,8 +630,6 @@ struct FRoleType
 	/// Allowed values: validator full_node
 };
 
-
-
 USTRUCT(BlueprintType)
 struct FStateCheckpointTransaction
 {
@@ -645,13 +653,13 @@ struct FSubmitTransactionRequest
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FString sender;					   // string<hex>
-	UPROPERTY() FString sequence_number;		   // string<uint64>
-	UPROPERTY() FString max_gas_amount;			   // string<uint64>
-	UPROPERTY() FString gas_unit_price;			   // string<uint64>
-	UPROPERTY() FString expiration_timestamp_secs; // string<uint64>
-	UPROPERTY() FTransactionPayload payload;	   // object
-	UPROPERTY() FAccountData signature;			   // object
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString sender;					 // string<hex>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString sequence_number;		     // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString max_gas_amount;			 // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString gas_unit_price;			 // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FString expiration_timestamp_secs; // string<uint64>
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FTransactionPayload payload;	     // object
+	UPROPERTY(BlueprintReadWrite, Category = "Aptos") FAccountSignature signature;	     // object
 };
 
 USTRUCT(BlueprintType)
@@ -698,7 +706,7 @@ struct FTransactionPayload_ModuleBundlePayload
 {
 	GENERATED_BODY()
 
-	UPROPERTY() FString type; // string
+	UPROPERTY() FString type;				 // string
 	UPROPERTY() TArray<FMoveModule> modules; // array[object]
 };
 
@@ -775,7 +783,7 @@ struct FTransaction_BlockMetadataTransaction
 	UPROPERTY() FString id;								   // string
 	UPROPERTY() FString epoch;							   // string<uint64>
 	UPROPERTY() FString round;							   // string<uint64>
-	UPROPERTY() TArray<FTransactionEvent> events;					   // array[object]
+	UPROPERTY() TArray<FTransactionEvent> events;		   // array[object]
 	UPROPERTY() TArray<uint8> previous_block_votes_bitvec; // array[integer]<uint8>
 	UPROPERTY() FString proposer;						   // string<hex>
 	UPROPERTY() TArray<uint32> failed_proposer_indices;    // array[integer]<uint32>
@@ -940,8 +948,6 @@ struct FVersionedEvent
 	UPROPERTY() FString data;
 };
 
-
-
 USTRUCT(BlueprintType)
 struct FWriteResource
 {
@@ -951,8 +957,6 @@ struct FWriteResource
 	UPROPERTY() FString state_key_hash; // string
 	UPROPERTY() FCode data;				// object
 };
-
-
 
 USTRUCT(BlueprintType)
 struct FWriteSetChange
@@ -1112,6 +1116,44 @@ struct FBlockMetadataTransaction
 	UPROPERTY() FString proposer;						   // string<hex>
 	UPROPERTY() TArray<uint32> failed_proposer_indices;    // array[integer]<uint32>
 	UPROPERTY() FString timestamp;						   // string<uint64>
+};
+
+USTRUCT(BlueprintType)
+struct FRawTransaction
+{
+	GENERATED_BODY()
+
+	UPROPERTY() FString sender;					 
+	UPROPERTY() uint64 sequence_number;		     
+	UPROPERTY() FTransactionPayload payload;	     
+	UPROPERTY() uint64 max_gas_amount;
+	UPROPERTY() uint64 gas_unit_price;
+	UPROPERTY() uint64 expiration_timestamp_secs;
+	UPROPERTY() uint64 chain_id;
+
+	std::vector<uint8_t> Serialize()
+	{
+		std::string senderString = MathHelper::FStringToStdString(*sender);
+
+		std::vector<std::byte> sender_bytes                    = MathHelper::UInt8VectorToStdByteVector(MathHelper::HexToBytes(senderString));
+		std::vector<std::byte> sequence_number_bytes           = MathHelper::UInt64ToBytes(sequence_number);
+		std::vector<std::byte> payload_bytes				   = FTransactionPayload::BuildTransactionPayload();
+		std::vector<std::byte> max_gas_amount_bytes            = MathHelper::UInt64ToBytes(max_gas_amount);
+		std::vector<std::byte> gas_unit_bytes                  = MathHelper::UInt64ToBytes(gas_unit_price);
+		std::vector<std::byte> expiration_timestamp_secs_bytes = MathHelper::UInt64ToBytes(expiration_timestamp_secs);
+		std::vector<std::byte> chain_id_bytes                  = MathHelper::UInt8ToBytes(chain_id);
+		
+		std::vector<std::byte> bytes;
+		bytes.insert(bytes.end(), std::begin(sender_bytes),					   std::end(sender_bytes));
+		bytes.insert(bytes.end(), std::begin(sequence_number_bytes),           std::end(sequence_number_bytes));
+		bytes.insert(bytes.end(), std::begin(payload_bytes),				   std::end(payload_bytes));
+		bytes.insert(bytes.end(), std::begin(max_gas_amount_bytes),            std::end(max_gas_amount_bytes));
+		bytes.insert(bytes.end(), std::begin(gas_unit_bytes),                  std::end(gas_unit_bytes));
+		bytes.insert(bytes.end(), std::begin(expiration_timestamp_secs_bytes), std::end(expiration_timestamp_secs_bytes));
+		bytes.insert(bytes.end(), std::begin(chain_id_bytes),                  std::end(chain_id_bytes));
+
+		return MathHelper::StdByteVectorToUInt8Vector(bytes);
+	}
 };
 
 UCLASS()

@@ -100,7 +100,6 @@ void UAnkrClientBase::SendRequest(FString _url, FString _verb, FString _payload,
 			if (!FJsonSerializer::Deserialize(Reader, JsonObject))
 			{
 				UE_LOG(LogTemp, Error, TEXT("AnkrClientBase - SendRequest - Deserialize Failed -_url: %s | content: %s"), *_url, *content);
-				return;
 			}
 			
 			_function(bytes, content, _callback, JsonObject);
