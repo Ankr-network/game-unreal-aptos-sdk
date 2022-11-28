@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "AptosClient.h"
-#include "AnkrDelegates.h"
+#include "AptosDelegates.h"
 #include "MyGameInstance.generated.h"
 
 /**

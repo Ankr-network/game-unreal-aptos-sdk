@@ -1,8 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "AptosSDK.h"
-#include <codecvt>
-#include <vector>
 #include "Windows/LibraryManager.h"
 
 #define LOCTEXT_NAMESPACE "FAptosSDKModule"

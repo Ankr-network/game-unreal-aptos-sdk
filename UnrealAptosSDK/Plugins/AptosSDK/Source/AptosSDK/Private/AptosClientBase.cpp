@@ -1,7 +1,7 @@
-#include "AnkrClientBase.h"
-#include "AnkrUtility.h"
+#include "AptosClientBase.h"
+#include "AptosUtility.h"
 
-void UAnkrClientBase::SendRequest(FString _url, FString _verb, FString _payload, TFunctionRef<void(const TArray<uint8>, const FString, TSharedPtr<FJsonObject>)> _function, bool _backgroundTask)
+void UAptosClientBase::SendRequest(FString _url, FString _verb, FString _payload, TFunctionRef<void(const TArray<uint8>, const FString, TSharedPtr<FJsonObject>)> _function, bool _backgroundTask)
 {
 	FHttpModule* httpModule = &FHttpModule::Get();
 
@@ -34,7 +34,7 @@ void UAnkrClientBase::SendRequest(FString _url, FString _verb, FString _payload,
 		{
 			const TArray<uint8> bytes = Response->GetContent();
 			const FString content = Response->GetContentAsString();
-
+			
 			if (!bWasSuccessful || !Response.IsValid() || !EHttpResponseCodes::IsOk(Response->GetResponseCode()))
 			{
 				UE_LOG(LogTemp, Error, TEXT("AnkrClientBase - SendRequest - Request Failed -_url: %s | content: %s"), *_url, *content);
@@ -47,14 +47,13 @@ void UAnkrClientBase::SendRequest(FString _url, FString _verb, FString _payload,
 			if (!FJsonSerializer::Deserialize(Reader, JsonObject))
 			{
 				UE_LOG(LogTemp, Error, TEXT("AnkrClientBase - SendRequest - Deserialize Failed -_url: %s | content: %s"), *_url, *content);
-				return;
 			}
 
 			_function(bytes, content, JsonObject);
 		});
 }
 
-void UAnkrClientBase::SendRequest(FString _url, FString _verb, FString _payload, TFunctionRef<void(const TArray<uint8>, const FString, const FAnkrCallCompleteDynamicDelegate&, TSharedPtr<FJsonObject>)> _function, const FAnkrCallCompleteDynamicDelegate& _callback, bool _backgroundTask)
+void UAptosClientBase::SendRequest(FString _url, FString _verb, FString _payload, TFunctionRef<void(const TArray<uint8>, const FString, const FAptosCallCompleteDynamicDelegate&, TSharedPtr<FJsonObject>)> _function, const FAptosCallCompleteDynamicDelegate& _callback, bool _backgroundTask)
 {
 	FHttpModule* httpModule = &FHttpModule::Get();
 

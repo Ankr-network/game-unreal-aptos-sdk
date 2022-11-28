@@ -1,15 +1,7 @@
 #include "LibraryManager.h"
-#include <codecvt>
-#include <sstream>
-#include <iomanip>
 #include "MathHelper.h"
+#include "CryptoConstants.h"
 
-#define crypto_sign_BYTES 64U
-#define crypto_sign_SEEDBYTES 32U
-#define crypto_sign_PUBLICKEYBYTES 32U
-#define crypto_sign_SECRETKEYBYTES (32U + 32U)
-#define crypto_hash_sha256_BYTES 32U
-#define MAX_MSG_LEN 1024
 
 void LibraryManager::Load()
 {
@@ -28,6 +20,13 @@ void LibraryManager::Load()
 	if (!sodium_init_func)
 	{
 		UE_LOG(LogTemp, Fatal, TEXT("sodium_init_func() can not be loaded."));
+		return;
+	}
+
+	crypto_sign_seed_keypair_func = reinterpret_cast<crypto_sign_seed_keypair_function>(reinterpret_cast<void*>(GetProcAddress(LibSodiumDynamicLibraryHandle, "crypto_sign_keypair")));
+	if (!crypto_sign_seed_keypair_func)
+	{
+		UE_LOG(LogTemp, Fatal, TEXT("crypto_sign_seed_keypair_func() can not be loaded."));
 		return;
 	}
 
@@ -73,10 +72,10 @@ void LibraryManager::Load()
 		return;
 	}
 
-	crypto_hash_sha256_func = reinterpret_cast<crypto_hash_sha256_function>(reinterpret_cast<void*>(GetProcAddress(LibSodiumDynamicLibraryHandle, "crypto_hash_sha256")));
-	if (!crypto_hash_sha256_func)
+	crypto_sign_ed25519_sk_to_seed_func = reinterpret_cast<crypto_sign_ed25519_sk_to_seed_function>(reinterpret_cast<void*>(GetProcAddress(LibSodiumDynamicLibraryHandle, "crypto_sign_ed25519_sk_to_pk")));
+	if (!crypto_sign_ed25519_sk_to_seed_func)
 	{
-		UE_LOG(LogTemp, Fatal, TEXT("crypto_hash_sha256_func() can not be loaded."));
+		UE_LOG(LogTemp, Fatal, TEXT("crypto_sign_ed25519_sk_to_seed_func() can not be loaded."));
 		return;
 	}
 
@@ -84,57 +83,25 @@ void LibraryManager::Load()
 	UE_LOG(LogTemp, Warning, TEXT("sodium_init_func() result: %d"), result);
 
 	isInitialized = result == 0;
-
-
-	FString dllPath = *FPaths::ProjectPluginsDir() + FString("AptosSDK/Source/AptosSDK/Private/Windows/Libraries/SerialSignClassLibrary.dll");
-	bool exists = FPaths::FileExists(dllPath);
-
-	if (exists)
-	{
-		HNDL = FPlatformProcess::GetDllHandle(*dllPath);
-		if (!HNDL)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("HNDL could not be loaded."));
-			return;
-		}
-
-		AssignCallbackFunc = (AssignCallbackFunction)FPlatformProcess::GetDllExport(HNDL, *FString("AssignCallback"));
-		if (AssignCallbackFunc == NULL)
-		{
-			UE_LOG(LogTemp, Fatal, TEXT("AssignCallbackFunc() can not be loaded."));
-			return;
-		}
-
-		AssignCallbackFunc([](const char* message)
-			{
-				UE_LOG(LogTemp, Warning, TEXT("%s"), *FString(message));
-			});
-
-		ConstructPayloadFunc = (ConstructPayloadFunction)FPlatformProcess::GetDllExport(HNDL, *FString("ConstructPayload"));
-		if (ConstructPayloadFunc == NULL)
-		{
-			UE_LOG(LogTemp, Fatal, TEXT("ConstructPayloadFunc() can not be loaded."));
-			return;
-		}
-
-		GetPayloadSizeFunc = (GetPayloadSizeFunction)FPlatformProcess::GetDllExport(HNDL, *FString("GetPayloadSize"));
-		if (ConstructPayloadFunc == NULL)
-		{
-			UE_LOG(LogTemp, Fatal, TEXT("GetPayloadSizeFunc() can not be loaded."));
-			return;
-		}
-	}
 } 
 
-std::vector<std::byte> LibraryManager::construct_payload(const char* _function, const char** _type_arguments, int _type_arguments_size, const char** _arguments, int _arguments_size)
+void LibraryManager::crypto_sign_seed_keypair(std::vector<uint8_t>& _out_sk, std::vector<uint8_t>& _out_pk, std::vector<uint8_t>& _in_seed)
 {
-	uint8_t* payload			 = ConstructPayloadFunc(_function, _type_arguments, _type_arguments_size, _arguments, _arguments_size);
-	int		 size			     = GetPayloadSizeFunc  (_function, _type_arguments, _type_arguments_size, _arguments, _arguments_size);
-	std::vector<std::byte> bytes = MathHelper::UInt8PtrToStdByteVector(payload, size);
-	return bytes;
+	uint8_t sk[crypto_sign_SECRETKEYBYTES];
+	uint8_t pk[crypto_sign_PUBLICKEYBYTES];
+	
+	int result = crypto_sign_seed_keypair_func(pk, sk, _in_seed.data());
+	if (result != 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_seed_keypair() failed to generate keypair."), result);
+		return;
+	}
+
+	_out_sk.insert(_out_sk.begin(), std::begin(sk), std::end(sk));
+	_out_pk.insert(_out_pk.begin(), std::begin(pk), std::end(pk));
 }
 
-void LibraryManager::crypto_sign_keypair(std::string* _sk, std::string* _pk)
+void LibraryManager::crypto_sign_keypair(std::vector<uint8_t>& _out_sk, std::vector<uint8_t>& _out_pk)
 {
 	uint8_t sk[crypto_sign_SECRETKEYBYTES];
 	uint8_t pk[crypto_sign_PUBLICKEYBYTES];
@@ -145,198 +112,99 @@ void LibraryManager::crypto_sign_keypair(std::string* _sk, std::string* _pk)
 		return;
 	}
 
-	int sklen = sizeof(sk) / sizeof(sk[0]);
-	int pklen = sizeof(pk) / sizeof(pk[0]);
-	
-	*_sk = MathHelper::BytesToHex(sk, sklen);
-	*_pk = MathHelper::BytesToHex(pk, pklen);
-	
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_keypair() generated successfully - sk: (%d Bytes) %s | pk: (%d Bytes) %s"), result, sklen, *FString((*_sk).c_str()), pklen, *FString((*_pk).c_str()));
+	_out_sk.insert(_out_sk.begin(), std::begin(sk), std::end(sk));
+	_out_pk.insert(_out_pk.begin(), std::begin(pk), std::end(pk));
 }
 
-void LibraryManager::crypto_sign_keypair(std::vector<uint8_t>& _sk, std::vector<uint8_t>& _pk)
+void LibraryManager::crypto_sign(const std::vector<uint8_t>& _in_m, const std::vector<uint8_t>& _in_sk, std::vector<uint8_t>& _out_sm)
 {
-	uint8_t sk[crypto_sign_SECRETKEYBYTES];
-	uint8_t pk[crypto_sign_PUBLICKEYBYTES];
-	int result = crypto_sign_keypair_func(pk, sk);
-	if (result != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_keypair() failed to generate keypair."), result);
-		return;
-	}
+	if (_in_sk.size() != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign() - incorrect secret-key with length in parameter.";
 
-	_sk.insert(_sk.begin(), std::begin(sk), std::end(sk));
-	_pk.insert(_pk.begin(), std::begin(pk), std::end(pk));
-
-	MathHelper::PrintBytes(_sk, "Secret Key");
-	MathHelper::PrintBytes(_pk, "Public Key");
-	//UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_keypair() generated successfully - sk: (%d Bytes) %s | pk: (%d Bytes) %s"), result, sklen, *FString((*_sk).c_str()), pklen, *FString((*_pk).c_str()));
-}
-
-std::string LibraryManager::crypto_sign(const std::string& _m, const std::string& _sk)
-{
-	std::vector<uint8_t> skvtr = MathHelper::HexToBytes(_sk);
-	uint8_t sk[crypto_sign_SECRETKEYBYTES];      // secret key
-	for (int i = 0; i < skvtr.size(); ++i) sk[i] = skvtr.at(i);
-	if (sizeof(sk) / sizeof(sk[0]) != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign() - incorrect secret-key with length in parameter.";
-
-	uint8_t m[MAX_MSG_LEN + crypto_sign_BYTES];  // message
-	memset(m, '\0', MAX_MSG_LEN);
-	unsigned long long mlen = snprintf((char*)m, MAX_MSG_LEN, "%s", _m.c_str());
-	
-	uint8_t sm[MAX_MSG_LEN + crypto_sign_BYTES]; // signed message
+	uint8_t sm[MAX_MSG_LEN + crypto_sign_BYTES];
 	unsigned long long smlen;
-
-	int result = crypto_sign_func(sm, &smlen, m, mlen, sk); 
+	int result = crypto_sign_func(sm, &smlen, _in_m.data(), _in_m.size(), _in_sk.data());
 	if (result != 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_func() failed to sign the message with secret-key."), result);
-		return std::string("");
+		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_func() signed the message successfully - sk: (%d) %s | m: (%d) %s |=> sm: (%d) %s"), result, sizeof(sk) / sizeof(sk[0]), *FString(MathHelper::BytesToHex(sk, sizeof(sk) / sizeof(sk[0])).c_str()), mlen, *FString(MathHelper::BytesToHex(m, mlen).c_str()), smlen, *FString(MathHelper::BytesToHex(sm, smlen).c_str()));
 
-	return MathHelper::BytesToHex(sm, smlen);
+	_out_sm.insert(_out_sm.begin(), std::begin(sm), std::end(sm));
 }
 
-std::string LibraryManager::crypto_sign_open(const std::string& _sm, const std::string& _pk)
+void LibraryManager::crypto_sign_open(const std::vector<uint8_t>& _in_sm, const std::vector<uint8_t>& _in_pk, std::vector<uint8_t>& _out_m)
 {
-	std::vector<uint8_t> pkvtr = MathHelper::HexToBytes(_pk);
-	uint8_t pk[crypto_sign_PUBLICKEYBYTES];      // public key
-	for (int i = 0; i < pkvtr.size(); ++i) pk[i] = pkvtr.at(i);
-	if (sizeof(pk) / sizeof(pk[0]) != crypto_sign_PUBLICKEYBYTES) throw "LibraryManager - crypto_sign_open() - incorrect public-key with length in parameter.";
+	if (_in_pk.size() != crypto_sign_PUBLICKEYBYTES) throw "LibraryManager - crypto_sign_open() - incorrect public-key with length in parameter.";
 
-	std::vector<uint8_t> smvtr = MathHelper::HexToBytes(_sm);
-	unsigned long long smlen = smvtr.size();
-	uint8_t sm[MAX_MSG_LEN + crypto_sign_BYTES]; // signed message
-	for (int i = 0; i < smlen; ++i) sm[i] = smvtr.at(i);
-	
-	uint8_t m[MAX_MSG_LEN + crypto_sign_BYTES];  // message
+	uint8_t m[MAX_MSG_LEN + crypto_sign_BYTES];
 	unsigned long long mlen;
-
-	int result = crypto_sign_open_func(m, &mlen, sm, smlen, pk);
+	int result = crypto_sign_open_func(m, &mlen, _in_sm.data(), _in_sm.size(), _in_pk.data());
 	if (result != 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_open_func() failed to verify the message."), result);
-		return std::string("");
+		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_open_func() - m: (%d) %s"), result, mlen, *FString(MathHelper::BytesToHex(m, mlen).c_str()));
+
+	_out_m.insert(_out_m.begin(), std::begin(m), std::end(m));
+}
+
+void LibraryManager::crypto_sign_detached(const std::vector<uint8_t>& _in_m, const std::vector<uint8_t>& _in_sk, std::vector<uint8_t>& _out_sg)
+{
+	if (_in_sk.size() != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_detached() - incorrect secret-key with length in parameter.";
+
+	uint8_t sg[crypto_sign_BYTES];
+	unsigned long long sglen;
+
+	int result = crypto_sign_detached_func(sg, &sglen, _in_m.data(), _in_m.size(), _in_sk.data());
+	if (result != 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_detached() failed to sign the message with secret-key."), result);
+		return;
+	}
 	
-	return MathHelper::BytesToHex(m, mlen);
+	_out_sg.insert(_out_sg.begin(), std::begin(sg), std::end(sg));
 }
 
-std::string LibraryManager::crypto_sign_detached(const std::string& _m, const std::string& _sk)
+void LibraryManager::crypto_sign_verify_detached(const std::vector<uint8_t>& _in_sg, const std::vector<uint8_t>& _in_m, const std::vector<uint8_t>& _in_pk, bool& v)
 {
-	std::vector<uint8_t> skvtr = MathHelper::HexToBytes(_sk);
-	uint8_t sk[crypto_sign_SECRETKEYBYTES];      // secret key
-	for (int i = 0; i < skvtr.size(); ++i) sk[i] = skvtr.at(i);
-	if (sizeof(sk) / sizeof(sk[0]) != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_detached() - incorrect secret-key with length in parameter.";
+	if (_in_pk.size() != crypto_sign_PUBLICKEYBYTES) throw "LibraryManager - crypto_sign_verify_detached() - incorrect public-key with length in parameter.";
 
-	uint8_t m[MAX_MSG_LEN + crypto_sign_BYTES];  // message
-	memset(m, '\0', MAX_MSG_LEN);
-	unsigned long long mlen = snprintf((char*)m, MAX_MSG_LEN, "%s", _m.c_str());
-
-	uint8_t sg[crypto_sign_BYTES]; // signed message
-	unsigned long long sglen;
-
-	int result = crypto_sign_detached_func(sg, &sglen, m, mlen, sk);
-	if (result != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_detached() failed to sign the message with secret-key."), result);
-		return std::string("");
-	}
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_detached() signed the message successfully - sk: (%d) %s | m: (%d) %s |=> sg: (%d) %s"), result, sizeof(sk) / sizeof(sk[0]), *FString(MathHelper::BytesToHex(sk, sizeof(sk) / sizeof(sk[0])).c_str()), mlen, *FString(MathHelper::BytesToHex(m, mlen).c_str()), sglen, *FString(MathHelper::BytesToHex(sg, sglen).c_str()));
-
-	return MathHelper::BytesToHex(sg, sglen);
-}
-
-std::string LibraryManager::crypto_sign_detached(const std::vector<uint8_t> _m, const std::vector<uint8_t> _sk)
-{
-	uint8_t sk[crypto_sign_SECRETKEYBYTES];      // secret key
-	for (int i = 0; i < _sk.size(); ++i) sk[i] = _sk.at(i);
-	if (sizeof(sk) / sizeof(sk[0]) != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_detached() - incorrect secret-key with length in parameter.";
-
-	uint8_t sg[crypto_sign_BYTES]; // signed message
-	unsigned long long sglen;
-
-	int result = crypto_sign_detached_func(sg, &sglen, _m.data(), _m.size(), _sk.data());
-	if (result != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_detached() failed to sign the message with secret-key."), result);
-		return std::string("");
-	}
-	//UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_detached() signed the message successfully - sk: (%d) %s | m: (%d) %s |=> sg: (%d) %s"), result, _sk.size(), *FString(MathHelper::BytesToHex(_sk.data(), _sk.size()).c_str()), _m.size(), *FString(MathHelper::BytesToHex(_m.data(), _m.size()).c_str()), sglen, *FString(MathHelper::BytesToHex(sg, sglen).c_str()));
-
-	return MathHelper::BytesToHex(sg, sglen);
-}
-
-std::string LibraryManager::crypto_sign_verify_detached(const std::string& _sg, const std::string& _sm, const std::string& _pk)
-{
-	std::vector<uint8_t> sgvtr = MathHelper::HexToBytes(_sg);
-	uint8_t sg[crypto_sign_SECRETKEYBYTES];      // secret key
-	for (int i = 0; i < sgvtr.size(); ++i) sg[i] = sgvtr.at(i);
-	if (sizeof(sg) / sizeof(sg[0]) != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_verify_detached() - incorrect public-key with length in parameter.";
-
-	std::vector<uint8_t> pkvtr = MathHelper::HexToBytes(_pk);
-	uint8_t pk[crypto_sign_PUBLICKEYBYTES];      // secret key
-	for (int i = 0; i < pkvtr.size(); ++i) pk[i] = pkvtr.at(i);
-	if (sizeof(pk) / sizeof(pk[0]) != crypto_sign_PUBLICKEYBYTES) throw "LibraryManager - crypto_sign_verify_detached() - incorrect public-key with length in parameter.";
-
-	std::vector<uint8_t> smvtr = MathHelper::HexToBytes(_sm);
-	unsigned long long smlen = smvtr.size();
-	uint8_t sm[MAX_MSG_LEN + crypto_sign_BYTES]; // signed message
-	for (int i = 0; i < smlen; ++i) sm[i] = smvtr.at(i);
-
-	int result = crypto_sign_verify_detached_func(sg, sm, smlen, pk);
+	int result = crypto_sign_verify_detached_func(_in_sg.data(), _in_m.data(), _in_m.size(), _in_pk.data());
 	if (result != 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_verify_detached() failed to verify the message."), result);
-		return std::string("");
+		return;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_verify_detached() - sm: (%d) %s"), result, smlen, *FString(MathHelper::BytesToHex(sm, smlen).c_str()));
-
-	return MathHelper::BytesToHex(sm, smlen);
+	
+	v = result == 0;
 }
+void LibraryManager::crypto_sign_ed25519_sk_to_seed(std::vector<uint8_t>& _out_seed,  std::vector<uint8_t>& _in_sk)
+{
+	if (_in_sk.size() != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_ed25519_sk_to_pk() - incorrect secret-key with length in parameter.";
 
-void LibraryManager::crypto_sign_ed25519_sk_to_pk(std::string* _pk, std::string _sk)
-{ 
-	std::vector<uint8_t> skvtr = MathHelper::HexToBytes(_sk);
-	uint8_t sk[crypto_sign_SECRETKEYBYTES];      // secret key
-	for (int i = 0; i < skvtr.size(); ++i) sk[i] = skvtr.at(i);
-	if (sizeof(sk) / sizeof(sk[0]) != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_ed25519_sk_to_pk() - incorrect secret-key with length in parameter.";
+	uint8_t seed[crypto_sign_SEEDBYTES];
+	int result = crypto_sign_ed25519_sk_to_seed_func(seed, _in_sk.data());
+	if (result != 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_ed25519_sk_to_seed() failed to generate keypair."), result);
+		return;
+	}
+
+	_out_seed.insert(_out_seed.begin(), std::begin(seed), std::end(seed));
+}
+void LibraryManager::crypto_sign_ed25519_sk_to_pk(std::vector<uint8_t>& _out_pk, const std::vector<uint8_t>& _in_sk)
+{
+	if (_in_sk.size() != crypto_sign_SECRETKEYBYTES) throw "LibraryManager - crypto_sign_ed25519_sk_to_pk() - incorrect secret-key with length in parameter.";
 
 	uint8_t pk[crypto_sign_PUBLICKEYBYTES];
-	int result = crypto_sign_ed25519_sk_to_pk_func(pk, sk);
+	int result = crypto_sign_ed25519_sk_to_pk_func(pk, _in_sk.data());
 	if (result != 0)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_ed25519_sk_to_pk() failed to generate keypair."), result);
 		return;
 	}
 
-	int pklen = sizeof(pk) / sizeof(pk[0]);
-	*_pk = MathHelper::BytesToHex(pk, pklen);
-
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_sign_ed25519_sk_to_pk() generated successfully - pk: (%d Bytes) %s"), result, pklen, *FString((*_pk).c_str()));
-}
-
-void LibraryManager::crypto_hash_sha256(const std::string& _m, std::string* _h)
-{
-	uint8_t m[MAX_MSG_LEN + crypto_hash_sha256_BYTES];  // message
-	memset(m, '\0', MAX_MSG_LEN);
-	unsigned long long mlen = snprintf((char*)m, MAX_MSG_LEN, "%s", _m.c_str());
-
-	uint8_t h[crypto_hash_sha256_BYTES];
-
-	int result = crypto_hash_sha256_func(h, m, mlen);
-	if (result != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_hash_sha256() failed to generate hash."), result);
-		return;
-	}
-
-	int hlen = sizeof(h) / sizeof(h[0]);
-	*_h = MathHelper::BytesToHex(h, hlen);
-
-	UE_LOG(LogTemp, Warning, TEXT("LibraryManager - %d crypto_hash_sha256() generated successfully - hash: (%d Bytes) %s"), result, hlen, *FString((*_h).c_str()));
+	_out_pk.insert(_out_pk.begin(), std::begin(pk), std::end(pk));
 }
 
 void LibraryManager::Unload()
@@ -347,14 +215,6 @@ void LibraryManager::Unload()
 
 		FPlatformProcess::FreeDllHandle(LibSodiumDynamicLibraryHandle);
 		LibSodiumDynamicLibraryHandle = nullptr;
-	}
-	if (HNDL)
-	{
-		AssignCallbackFunc   = NULL;
-		ConstructPayloadFunc = NULL;
-		GetPayloadSizeFunc   = NULL;
-		FPlatformProcess::FreeDllHandle(HNDL);
-		HNDL = nullptr;
 	}
 }
 

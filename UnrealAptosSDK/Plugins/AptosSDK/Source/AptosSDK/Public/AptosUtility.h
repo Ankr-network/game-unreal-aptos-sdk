@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "AnkrUtility.generated.h"
+#include "AptosUtility.generated.h"
 
 const FString API_DEVELOPMENT_URL		= FString(TEXT("https://fullnode.devnet.aptoslabs.com/v1"));
 
@@ -11,7 +11,7 @@ const FString CONTENT_TYPE_VALUE		= FString(TEXT("application/json"));
 static FString LastRequest;
 
 UCLASS()
-class APTOSSDK_API UAnkrUtility : public UObject
+class APTOSSDK_API UAptosUtility : public UObject
 {
 	GENERATED_BODY()
 

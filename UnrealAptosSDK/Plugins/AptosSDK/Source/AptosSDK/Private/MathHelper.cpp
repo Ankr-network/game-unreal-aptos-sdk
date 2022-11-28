@@ -2,7 +2,7 @@
 #include <codecvt>
 #include <sstream>
 #include <iomanip>
-#include "sha3.h"
+#include "HashLibrary/sha3.h"
 
 MathHelper::MathHelper(){}
 MathHelper::~MathHelper(){}
@@ -11,100 +11,79 @@ std::string MathHelper::FStringToStdString(FString _string)
 {
 	return std::string(TCHAR_TO_UTF8(*_string));
 }
+
 FString MathHelper::StdStringToFString(std::string _string)
 {
 	return FString(_string.c_str());
 }
 
-uint8_t MathHelper::GetBytes(uint16_t value, int index)
-{
-	return index ? (uint8_t)((value & 0xff00) >> 8) : (uint8_t)(value & 0x00ff);
-}
-
 void MathHelper::PrintBytes(uint8_t* bytes, int size, const char* _title)
 {
-	FString log = FString("Bytes { ");
+	FString log = FString("[ ");
 	for (int i = 0; i < size; i++)
 	{
-		uint8_t byte = bytes[i];
-		log.Append(FString::FromInt(byte));
-
-		if (i != size - 1) log.Append(", ");
-
+		log.Append(FString::FromInt(bytes[i]));
+		if (i < size - 1) log.Append(", ");
 	}
-	log.Append(" }");
-	Label(_title);
+	log.Append(" ]");
+
+	UE_LOG(LogTemp, Warning, TEXT(" "));
+	UE_LOG(LogTemp, Warning, TEXT("===================================================================================================="));
+	UE_LOG(LogTemp, Warning, TEXT("%s (%d)"), *FString(_title), size);
+	UE_LOG(LogTemp, Warning, TEXT("===================================================================================================="));
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *log);
-	PrintSpace();
-}
-
-void MathHelper::PrintBytes(std::byte* bytes, int size, const char* _title)
-{
-	FString log = FString("Bytes { ");
-	for (int i = 0; i < size; i++)
-	{
-		uint8_t byte = std::to_integer<int>(bytes[i]);
-		log.Append(FString::FromInt(byte));
-
-		if (i != size - 1) log.Append(", ");
-
-	}
-	log.Append(" }");
-	Label(_title);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *log);
-	PrintSpace();
-}
-
-void MathHelper::PrintBytes(std::vector<uint8_t> bytes, const char* _title)
-{
-	FString log = FString("Bytes { ");
-	for (int i = 0; i < bytes.size(); i++)
-	{
-		uint8_t byte = bytes[i];
-		log.Append(FString::FromInt(byte));
-
-		if (i != bytes.size() - 1) log.Append(", ");
-
-	}
-	log.Append(" }");
-	Label(_title);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *log);
-	PrintSpace();
-}
-
-void MathHelper::PrintBytes(std::vector<std::byte> bytes, const char* _title)
-{
-	FString log = FString("Bytes { ");
-	for (int i = 0; i < bytes.size(); i++)
-	{
-		std::byte byte = bytes[i];
-		log.Append(FString::FromInt(std::to_integer<int>(byte)));
-
-		if (i != bytes.size() - 1) log.Append(", ");
-
-	}
-	log.Append(" }");
-	Label(_title);
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *log);
-	PrintSpace();
-}
-
-void MathHelper::PrintSpace()
-{
 	UE_LOG(LogTemp, Warning, TEXT(" "));
 }
 
-void MathHelper::PrintLine()
+std::vector<uint8_t> MathHelper::StringToBytes(const std::string _string)
 {
-	UE_LOG(LogTemp, Warning, TEXT("===================================================================================================="));
+	const unsigned int size = _string.size();
+
+	std::byte* bytes = new std::byte[size];
+	std::memcpy(bytes, _string.data(), size);
+
+	std::vector<uint8_t> vctr;
+	for (unsigned int i = 0; i < size; i++) vctr.push_back(std::to_integer<uint8_t>(bytes[i]));
+
+	return vctr;
 }
 
-void MathHelper::Label(const char* _title)
+std::string MathHelper::BytesToString(uint8_t* _array, int _size)
 {
-	PrintSpace();
-	PrintLine();
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *FString(_title));
-	PrintLine();
+	std::ostringstream convert;
+	for (int i = 0; i < _size; i++)
+	{
+		convert << (int)_array[i];
+	}
+	std::string str = convert.str();
+	return str;
+}
+
+bool MathHelper::HasHexPrefix(std::string& value)
+{
+	return value.substr(0, 2).compare("0x") == 0;
+}
+
+bool MathHelper::IsHex(std::string& value)
+{
+	bool isHex;
+	char c;
+	for (int i = 0; i < value.size(); i++)
+	{
+		c = value[i];
+		isHex = ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
+
+		if (!isHex) return false;
+	}
+	return true;
+}
+
+void MathHelper::ApplyHexPrefix(std::string& value)
+{
+	if (!HasHexPrefix(value))
+	{
+		value = std::string("0x") + value;
+	}
 }
 
 std::string MathHelper::BytesToHex(uint8_t* _array, int _size)
@@ -114,22 +93,9 @@ std::string MathHelper::BytesToHex(uint8_t* _array, int _size)
 	{
 		buffer << std::setw(2) << static_cast<unsigned>(_array[i]);
 	}
-	std::string string = buffer.str();
-	return string;
-}
-std::string MathHelper::BytesToHex(std::byte* _array, int _size)
-{
-	std::stringstream buffer; buffer << std::hex << std::setfill('0');
-	for (int i = 0; i < _size; i++)
-	{
-		buffer << std::setw(2) << static_cast<unsigned>(_array[i]);
-	}
-	std::string string = buffer.str();
-
-	PrintBytes(_array, _size, "BytesToHex");
-	UE_LOG(LogTemp, Warning, TEXT("Hex: %s"), *FString(string.c_str()));
-
-	return string;
+	std::string hex = buffer.str();
+	ApplyHexPrefix(hex);
+	return hex;
 }
 
 std::vector<uint8_t> MathHelper::HexToBytes(const std::string& hex)
@@ -146,99 +112,35 @@ std::vector<uint8_t> MathHelper::HexToBytes(const std::string& hex)
 	}
 	return bytes;
 }
-std::vector<std::byte> MathHelper::StringToBytes(const std::string _string)
-{
-	const unsigned int size = _string.size();
 
-	std::byte* bytes = new std::byte[size];
-	std::memcpy(bytes, _string.data(), size);
-
-	std::vector<std::byte> vctr;
-	for (unsigned int i = 0; i < size; i++) vctr.push_back(bytes[i]);
-
-	return vctr;
-}
-
-std::vector<std::byte> MathHelper::UInt64ToBytes(uint64 integer)
+std::vector<uint8_t> MathHelper::UInt64ToBytes(uint64 integer)
 {
 	uint64 i = integer;
 	uint8_t b[sizeof(uint64)];
 	(uint64&)b = i;
 
-	std::vector<std::byte> vctr;
+	std::vector<uint8_t> vctr;
 	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
 	{
 		std::byte byte = std::byte(b[v]);
-		vctr.push_back(byte);
+		vctr.push_back(std::to_integer<uint8_t>(byte));
 	}
 
 	return vctr;
 }
-std::vector<std::byte> MathHelper::UInt8ToBytes(uint8 integer)
+std::vector<uint8_t> MathHelper::UInt8ToBytes(uint8 integer)
 {
 	uint8 i = integer;
 	uint8_t b[sizeof(uint8)];
 	(uint8&)b = i;
 
-	std::vector<std::byte> vctr;
+	std::vector<uint8_t> vctr;
 	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
 	{
 		std::byte byte = std::byte(b[v]);
-		vctr.push_back(byte);
+		vctr.push_back(std::to_integer<uint8_t>(byte));
 	}
 
-	return vctr;
-}
-
-bool MathHelper::HasHexPrefix(std::string& value)
-{
-	return value.substr(0, 2).compare("0x") == 0;
-}
-bool MathHelper::IsHex(std::string& value)
-{
-	bool isHex;
-	char c;
-	for (int i = 0; i < value.size(); i++)
-	{
-		c     = value[i];
-		isHex = ((c >= '0' && c <= '9') ||
-				 (c >= 'a' && c <= 'f') ||
-				 (c >= 'A' && c <= 'F'));
-
-		if (!isHex) return false;
-	}
-	return true;
-}
-
-void MathHelper::Sha3Digest(const std::string _string, std::string* _outHash, std::vector<uint8_t>& _outBytes)
-{
-	const std::vector<std::byte> bytes = StringToBytes(_string);
-
-	SHA3 sha3(SHA3::Bits256);
-	sha3.add(bytes.data(), bytes.size());
-	std::string sha3hash = sha3.getHash();
-
-	*_outHash = sha3hash;
-	_outBytes = HexToBytes(sha3hash);
-}
-
-std::vector<uint8_t> MathHelper::StdByteVectorToUInt8Vector(std::vector<std::byte> bytes)
-{
-	std::vector<uint8_t> vctr;
-	for (int i = 0; i < bytes.size(); i++)
-	{
-		vctr.push_back(std::to_integer<uint8_t>(bytes.at(i)));
-	}
-	return vctr;
-}
-
-std::vector<std::byte> MathHelper::UInt8VectorToStdByteVector(std::vector<uint8_t> bytes)
-{
-	std::vector<std::byte> vctr;
-	for (int i = 0; i < bytes.size(); i++)
-	{
-		vctr.push_back(std::byte(bytes.at(i)));
-	}
 	return vctr;
 }
 
@@ -252,33 +154,64 @@ std::vector<uint8_t> MathHelper::UInt8PtrToUInt8Vector(uint8_t* bytes, int size)
 	return vctr;
 }
 
-std::vector<std::byte> MathHelper::UInt8PtrToStdByteVector(uint8_t* bytes, int size)
+TArray<uint8_t> MathHelper::UInt8VectorToTArray(std::vector<uint8_t>& _vector)
 {
-	std::vector<std::byte> vctr;
-	for (int i = 0; i < size; i++)
-	{
-		vctr.push_back(std::byte(bytes[i]));
-	}
-	return vctr;
+	TArray<uint8_t> tArray;
+	tArray.Append(&_vector[0], _vector.size());
+	return tArray;
 }
 
-std::vector<std::byte> MathHelper::StdBytePtrToStdByteVector(std::byte* bytes, int size)
+void MathHelper::HexChar(unsigned char c, unsigned char& hex1, unsigned char& hex2)
 {
-	std::vector<std::byte> vctr;
-	for (int i = 0; i < size; i++)
-	{
-		vctr.push_back(bytes[i]);
-	}
-	return vctr;
+	hex1 = c / 16;
+	hex2 = c % 16;
+	hex1 += hex1 <= 9 ? '0' : 'a' - 10;
+	hex2 += hex2 <= 9 ? '0' : 'a' - 10;
 }
 
-std::vector<uint8_t> MathHelper::StdBytePtrToUInt8Vector(std::byte* bytes, int size)
+std::string MathHelper::UrlEncode(std::string s)
 {
-	std::vector<uint8_t> vctr;
-	for (int i = 0; i < size; i++)
+	const char* str = s.c_str();
+	std::vector<char> v(s.size());
+	v.clear();
+	for (size_t i = 0, l = s.size(); i < l; i++)
 	{
-		vctr.push_back(std::to_integer<uint8_t>(bytes[i]));
+		char c = str[i];
+		if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '-' || c == '_' || c == '.' || c == '!' || c == '~' || c == ':' || c == '*' || c == '\'' || c == '(' || c == ')')
+		{
+			v.push_back(c);
+		}
+		else if (c == ' ')
+		{
+			v.push_back('+');
+		}
+		else
+		{
+			v.push_back('%');
+			unsigned char d1, d2;
+			HexChar(c, d1, d2);
+			v.push_back(d1);
+			v.push_back(d2);
+		}
 	}
-	return vctr;
+
+	return std::string(v.cbegin(), v.cend());
 }
 
+uint64_t MathHelper::GetExpireTimestamp(int _defaultTxnExpSecFromNow)
+{
+	FDateTime now = FDateTime::Now();
+	FTimespan span = FTimespan::FromSeconds(_defaultTxnExpSecFromNow);
+	now += span;
+	return now.ToUnixTimestamp();
+}
+
+void MathHelper::Sha3Digest(const std::vector<uint8_t> _inBytes, std::string* _outHash, std::vector<uint8_t>& _outBytes)
+{
+	SHA3 sha3(SHA3::Bits256);
+	sha3.add(_inBytes.data(), _inBytes.size());
+	std::string sha3hash = sha3.getHash();
+
+	*_outHash = sha3hash;
+	_outBytes = HexToBytes(sha3hash);
+}
