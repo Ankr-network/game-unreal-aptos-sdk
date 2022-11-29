@@ -1,6 +1,6 @@
 # Aptos SDK
 
-This project demonstrates the integration of Aptos Blockchain in Unreal Engine in accordance with the [Aptos Official Blochain API](https://fullnode.devnet.aptoslabs.com/v1/spec#/operations/get_transactions). The current project is only tested on Windows platform as the development is in its initial stage.
+This project demonstrates the integration of Aptos Blockchain in Unreal Engine in accordance with the [Aptos Official Blochain API](https://fullnode.devnet.aptoslabs.com/v1/spec#/). The current project is only tested on Windows platform as the development is in its initial stage.
 
 This project shows how to transfer coin(s) from one person to another using Aptos API. 
 These are the steps that are taken to make the transaction.
@@ -35,7 +35,7 @@ Whats happening in this function is to create a raw transaction that contains in
 ### EncodeSubmission
 Call EncodeSubmission function with the encode submission request created to obtain a BCS serialized data.
 
-Whats happening in this function is to send the raw transaction request to Aptos to serialize the data for us, as BCS serialization plugin is available only for Rust, Python and Typescript at the moment so Aptos provides one for us, see [here](https://fullnode.devnet.aptoslabs.com/v1/spec#/operations/encode_submission).
+Whats happening in this function is to send the raw transaction request to Aptos to serialize the data for us, as BCS serialization plugin is available only for Rust, Python and Typescript at the moment so Aptos provides one for us as we don't have any in C++ yet, see [here](https://fullnode.devnet.aptoslabs.com/v1/spec#/operations/encode_submission).
 
 <img width="769" alt="2" src="https://user-images.githubusercontent.com/99165088/204404841-c64c946d-d000-4619-8735-65e133c132a1.png">
 
