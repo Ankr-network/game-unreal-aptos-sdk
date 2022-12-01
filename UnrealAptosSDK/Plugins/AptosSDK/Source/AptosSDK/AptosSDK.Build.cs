@@ -62,21 +62,6 @@ public class AptosSDK : ModuleRules
 		{
 			SetWindowsDependencies();
 		}
-
-		else if (Target.Platform == UnrealTargetPlatform.Mac)
-		{
-			SetMacDependencies();
-		}
-
-		else if (Target.Platform == UnrealTargetPlatform.IOS)
-		{
-			SetiOSDependencies();
-		}
-
-		else if (Target.Platform == UnrealTargetPlatform.Android)
-		{
-			SetAndroidDependencies();
-		}
 	}
 
 	void SetWindowsDependencies()
@@ -89,34 +74,5 @@ public class AptosSDK : ModuleRules
 		//PublicAdditionalLibraries.Add(SodiumLibraryPath);
 		//RuntimeDependencies.Add(SodiumDynamicLibraryPath);
 		//PublicDelayLoadDLLs.Add("libsodium.dll");
-	}
-
-	void SetMacDependencies()
-    {
-        //PublicIncludePaths.Add(ModuleDirectory + "/Private/Mac/Libraries/Framework.framework/Headers");
-        //PublicFrameworks.Add(ModuleDirectory + "/Private/Mac/Libraries/Framework.framework");
-
-        PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/Mac"));
-    }
-
-	void SetiOSDependencies()
-    {
-        //PublicIncludePaths.Add(ModuleDirectory + "/Private/iOS/Libraries/Framework.framework/Headers");
-        //PublicAdditionalFrameworks.Add(new Framework("Framework", ModuleDirectory + "/Private/iOS/Libraries/Framework.framework"));
-
-        PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
-
-        PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/iOS"));
-        string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
-        AdditionalPropertiesForReceipt.Add("IOSPlugin", Path.Combine(PluginPath, "AptosSDKiOS_UPL.xml"));
-    }
-
-	void SetAndroidDependencies()
-    {
-        PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
-
-        PrivateIncludePaths.Add(Path.Combine(ModuleDirectory, "Private/Android"));
-        string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, Target.RelativeEnginePath);
-        AdditionalPropertiesForReceipt.Add("AndroidPlugin", Path.Combine(PluginPath, "AptosSDKAndroid_UPL.xml"));
 	}
 }
