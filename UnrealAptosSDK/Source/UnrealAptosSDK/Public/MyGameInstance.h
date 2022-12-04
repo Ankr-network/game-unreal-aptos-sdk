@@ -40,5 +40,5 @@ public:
 	void OnMobileAppDeactivated();
 
 	UFUNCTION()
-	void OnApplicationResume();
+	void OnApplicationResumed();
 };
