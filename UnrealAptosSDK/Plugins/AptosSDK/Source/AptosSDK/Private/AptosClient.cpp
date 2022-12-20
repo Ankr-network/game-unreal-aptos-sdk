@@ -3,7 +3,7 @@
 #include "MathHelper.h"
 #include "LibraryManager.h"
 
-UAptosClient::UAptosClient(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) { }
+UAptosClient::UAptosClient(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {  }
 
 void UAptosClient::GetAccount(FString _address, FString _qledger_version, const FAptosCallCompleteDynamicDelegate& Result)
 {
@@ -144,7 +144,7 @@ FAptosAccount UAptosClient::GetAliceAccount()
 {
 	std::vector<uint8_t> sk
 	{
-		255,211,113,35,165,87,101,140,224,222,92,33,154,65,150,110,140,93,2,42,28,171,127,97,43,26,129,71,81,123,43,127,184,15,11,253,79,245,134,84,235,194,101,199,183,86,195,6,154,234,47,136,15,71,94,119,91,201,60,202,25,182,116,124
+		139, 232, 127, 5, 224, 205, 154, 39, 214, 116, 173, 201, 71, 84, 202, 204, 61, 237, 31, 250, 128, 105, 113, 118, 208, 237, 211, 102, 9, 223, 189, 206, 193, 197, 88, 35, 4, 67, 50, 74, 18, 149, 7, 26, 224, 242, 238, 240, 250, 171, 200, 96, 66, 64, 125, 46, 66, 88, 50, 130, 103, 53, 245, 99
 	};
 
 	FAptosAccount alice = FAptosAccount();
@@ -156,7 +156,7 @@ FAptosAccount UAptosClient::GetBobAccount()
 {
 	std::vector<uint8_t> sk
 	{
-		20,225,26,255,205,22,88,59,107,19,118,175,43,243,114,90,198,51,246,142,39,197,124,171,28,60,58,214,46,21,146,143,18,48,212,127,244,102,145,168,135,173,213,67,205,70,19,246,184,65,43,96,86,181,231,77,73,199,154,39,255,120,32,129
+		108, 229, 219, 204, 239, 251, 7, 108, 251, 22, 35, 129, 121, 229, 102, 50, 185, 107, 86, 192, 194, 45, 209, 232, 72, 112, 163, 36, 39, 69, 115, 39, 138, 212, 3, 225, 51, 170, 204, 43, 249, 82, 175, 54, 9, 121, 214, 27, 32, 224, 21, 193, 194, 192, 97, 1, 147, 11, 118, 60, 16, 14, 137, 6
 	};
 
 	FAptosAccount bob = FAptosAccount();
@@ -164,13 +164,46 @@ FAptosAccount UAptosClient::GetBobAccount()
 	return bob;
 }
 
-FEncodeSubmissionRequest UAptosClient::GetEncodeSubmissionRequest(FString _sender, FString _sequence_number, FString _max_gas_amount, FString _gas_estimate, FString _expireInSecs, FString _type, FString _function, TArray<FString> _type_arguments, TArray<FString> _arguments, TArray<FString> _secondary_signers)
+FEncodeSubmissionRequest UAptosClient::GetEncodeSubmissionRequest(FString _sender, FString _sequence_number, FString _max_gas_amount, FString _gas_estimate, FString _expireInSecs, FString _type, FString _function, TArray<FString> _type_arguments, TArray<FArgument> _arguments, TArray<FString> _secondary_signers)
 {
+	TArray<TSharedPtr<FJsonValue>> type_arguments;
+	for (int i = 0; i < _type_arguments.Num(); i++)
+	{
+		UPayloadBuilder::AddArrayItem(type_arguments, _type_arguments[i]);
+	}
+
+	TArray<TSharedPtr<FJsonValue>> arguments;
+	if (_arguments.Num() > 0)
+	{
+		for (auto& entry : _arguments)
+		{
+			if (entry.Item.IsEmpty() && entry.Array.Num() <= 0)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("AptosClient - GetEncodeSubmissionRequest - Empty argument, null array will be used instead."));
+			}
+
+			if (!entry.Item.IsEmpty())
+			{
+				AddArgument(arguments, entry.Item);
+			}
+			else
+			{
+				TArray<TSharedPtr<FJsonValue>> ArrayField;
+				for (auto& field : entry.Array)
+				{
+					AddArgument(ArrayField, field);
+				}
+				UPayloadBuilder::AddNestedArray(arguments, ArrayField);
+			}
+		}
+	}
+
 	FTransactionPayload payload;
 	payload.type			  = _type;
 	payload.function		  = _function;
-	payload.type_arguments	  = _type_arguments;
-	payload.arguments	      = _arguments;
+	payload.type_arguments	  = type_arguments;
+	payload.arguments	      = arguments;
+	payload.Update();
 
 	FEncodeSubmissionRequest request;
 	request.sender					  = _sender;
@@ -210,4 +243,64 @@ FSubmitTransactionRequest UAptosClient::GetTransactionSubmitRequest(FEncodeSubmi
 	request.payload					  = _encodeSubmissionRequest.payload;
 	request.signature				  = _transactionSignature;
 	return request;
+}
+
+void UAptosClient::AddArgument(TArray<TSharedPtr<FJsonValue>>& _array, const FString _field)
+{
+	if (_field.IsEmpty())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AptosClient - AddArgument - _field can not be empty."));
+		return;
+	}
+
+	TArray<FString> splits;
+	_field.ParseIntoArray(splits, *FString("::"), true);
+
+	if (splits.Num() != 2)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AptosClient - AddArgument - _field is invalid."));
+		return;
+	}
+
+	const FString key = splits[0];
+	const FString val = splits[1];
+
+	if (key.Equals(TEXT("null"), ESearchCase::CaseSensitive))
+	{
+		_array.Add(MakeShareable(new FJsonValueNull()));
+	}
+	else if (key.Equals(TEXT("string"), ESearchCase::CaseSensitive))
+	{
+		_array.Add(MakeShareable(new FJsonValueString(val)));
+	}
+	else if (key.Equals(TEXT("bool"), ESearchCase::CaseSensitive))
+	{
+		bool value = val.ToBool();
+		_array.Add(MakeShareable(new FJsonValueBoolean(value)));
+	}
+	else if (key.Equals(TEXT("int32"), ESearchCase::CaseSensitive))
+	{
+		int32 value = FCString::Atoi(*val);
+		_array.Add(MakeShareable(new FJsonValueNumber(value)));
+	}
+	else if (key.Equals(TEXT("int64"), ESearchCase::CaseSensitive))
+	{
+		int64 value = FCString::Atoi64(*val);
+		_array.Add(MakeShareable(new FJsonValueNumber(value)));
+	}
+	else if (key.Equals(TEXT("uint64"), ESearchCase::CaseSensitive))
+	{
+		uint64 value = FCString::Strtoui64(*val, NULL, 10);
+		_array.Add(MakeShareable(new FJsonValueNumber(value)));
+	}
+	else if (key.Equals(TEXT("float"), ESearchCase::CaseSensitive))
+	{
+		float value = FCString::Atof(*val);
+		_array.Add(MakeShareable(new FJsonValueNumber(value)));
+	}
+	else if (key.Equals(TEXT("double"), ESearchCase::CaseSensitive))
+	{
+		double value = FCString::Atod(*val);
+		_array.Add(MakeShareable(new FJsonValueNumber(value)));
+	}
 }

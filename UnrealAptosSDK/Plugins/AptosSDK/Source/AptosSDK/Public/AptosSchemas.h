@@ -10,28 +10,40 @@
 #include "AptosSchemas.generated.h"
 
 USTRUCT(BlueprintType)
+struct FArgument
+{
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FString Item;
+	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") TArray<FString> Array;
+};
+
+USTRUCT(BlueprintType)
 struct FTransactionPayload
 {
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FString type;					  // string
-	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FString function;				  // string
-	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") TArray<FString> type_arguments; // array[string]
-	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") TArray<FString> arguments;	  // array[string]
-	
+	FString type;								   // string
+	FString function;							   // string
+	TArray<TSharedPtr<FJsonValue>> type_arguments; // array[string]
+	TArray<TSharedPtr<FJsonValue>> arguments;	   // array[string]
+	TSharedPtr<FJsonObject> builder;
+
+	FTransactionPayload()
+	{
+		builder = UPayloadBuilder::GetBuilder();
+	}
+
+	void Update()
+	{
+		builder->SetStringField("function",		 function);
+		builder->SetArrayField("type_arguments", type_arguments);
+		builder->SetArrayField("arguments",		 arguments);
+		builder->SetStringField("type",			"entry_function_payload");
+	}
+
 	TSharedPtr<FJsonObject> ToJsonObject()
 	{
-		TArray<TSharedPtr<FJsonValue>> _type_arguments;
-		for (int i = 0; i < type_arguments.Num(); i++) UPayloadBuilder::AddArrayItem(_type_arguments, type_arguments[i]);
-		
-		TArray<TSharedPtr<FJsonValue>> _arguments;
-		for (int i = 0; i < arguments.Num(); i++) UPayloadBuilder::AddArrayItem(_arguments, arguments[i]);
-		
-		TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();
-		builder->SetStringField ("function",	   function);
-		builder->SetArrayField  ("type_arguments", _type_arguments);
-		builder->SetArrayField  ("arguments",      _arguments);
-		builder->SetStringField ("type",          "entry_function_payload");
 		return builder;
 	}
 };

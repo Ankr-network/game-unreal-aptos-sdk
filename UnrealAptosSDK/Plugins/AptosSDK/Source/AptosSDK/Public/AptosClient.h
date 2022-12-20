@@ -46,11 +46,13 @@ public:
 	FAptosAccount GetBobAccount();
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
-	FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString _sender, FString _sequence_number, FString _max_gas_amount, FString _gas_estimate, FString _expireInSecs, FString _type, FString _function, TArray<FString> _type_arguments, TArray<FString> _arguments, TArray<FString> _secondary_signers);
+	FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString _sender, FString _sequence_number, FString _max_gas_amount, FString _gas_estimate, FString _expireInSecs, FString _type, FString _function, TArray<FString> _type_arguments, TArray<FArgument> _arguments, TArray<FString> _secondary_signers);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	FAccountSignature GetTransactionSignature(FAptosAccount _sender, FString _bcsMessage);
 
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	FSubmitTransactionRequest GetTransactionSubmitRequest(FEncodeSubmissionRequest _encodeSubmissionRequest, FAccountSignature _transactionSignature);
+
+	void AddArgument(TArray<TSharedPtr<FJsonValue>>& _array, const FString _field);
 };
