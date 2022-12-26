@@ -7,7 +7,7 @@
 #include "AptosDelegates.h"
 #include "AptosClientBase.generated.h"
 
-/// UAnkrClientBase is an ANKR class that provides helper functions to send GET or POST requests asynchronously.
+/// UAptosClientBase provides helper functions to send GET or POST requests asynchronously.
 UCLASS(Blueprintable, BlueprintType)
 class APTOSSDK_API UAptosClientBase : public UObject
 {

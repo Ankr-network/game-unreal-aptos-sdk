@@ -1,0 +1,27 @@
+\hypertarget{_aptos_client_base_8h_source}{}\doxysection{Aptos\+Client\+Base.\+h}
+\label{_aptos_client_base_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Public/AptosClientBase.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Public/AptosClientBase.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}CoreMinimal.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Engine.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Runtime/Online/HTTP/Public/Http.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}Kismet/BlueprintFunctionLibrary.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}AptosDelegates.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}AptosClientBase.generated.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{11 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{12 class APTOSSDK\_API \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}} : public UObject}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14     GENERATED\_BODY()}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{28     }
+\DoxyCodeLine{29     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_u_aptos_client_base_a660f5fe79697a3bd522602fc8a7ed44d}{SendRequest}}(FString \_url, FString \_verb, FString \_payload, TFunctionRef<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} TArray<uint8>, \textcolor{keyword}{const} FString, TSharedPtr<FJsonObject>)> \_function, \textcolor{keywordtype}{bool} \_backgroundTask);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{42     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_u_aptos_client_base_a1eb9532f72eb9c6c7579fd43133f5f47}{SendRequest}}(FString \_url, FString \_verb, FString \_payload, TFunctionRef<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} TArray<uint8>, \textcolor{keyword}{const} FString, \textcolor{keyword}{const} FAptosCallCompleteDynamicDelegate\&, TSharedPtr<FJsonObject>)> \_function, \textcolor{keyword}{const} FAptosCallCompleteDynamicDelegate\& \_callback, \textcolor{keywordtype}{bool} \_backgroundTask);}
+\DoxyCodeLine{43 \};}
+
+\end{DoxyCode}

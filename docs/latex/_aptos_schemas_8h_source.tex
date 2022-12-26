@@ -1,0 +1,298 @@
+\hypertarget{_aptos_schemas_8h_source}{}\doxysection{Aptos\+Schemas.\+h}
+\label{_aptos_schemas_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Public/AptosSchemas.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Public/AptosSchemas.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}CoreMinimal.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}Engine/UserDefinedStruct.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <JsonObjectConverter.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}MathHelper.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}../Private/Windows/LibraryManager.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}CryptoConstants.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}PayloadBuilder.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}AptosSchemas.generated.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 USTRUCT(BlueprintType)}
+\DoxyCodeLine{13 struct \mbox{\hyperlink{struct_f_argument}{FArgument}}}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     GENERATED\_BODY()}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString Item;}
+\DoxyCodeLine{18     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) TArray<FString> Array;}
+\DoxyCodeLine{19 \};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 USTRUCT(BlueprintType)}
+\DoxyCodeLine{22 struct \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24     GENERATED\_BODY()}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     FString type;                                  \textcolor{comment}{// string}}
+\DoxyCodeLine{27     FString function;                              \textcolor{comment}{// string}}
+\DoxyCodeLine{28     TArray<TSharedPtr<FJsonValue>> type\_arguments; \textcolor{comment}{// array[string]}}
+\DoxyCodeLine{29     TArray<TSharedPtr<FJsonValue>> arguments;      \textcolor{comment}{// array[string]}}
+\DoxyCodeLine{30     TSharedPtr<FJsonObject> builder;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}}()}
+\DoxyCodeLine{33     \{}
+\DoxyCodeLine{34         builder = UPayloadBuilder::GetBuilder();}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} Update()}
+\DoxyCodeLine{38     \{}
+\DoxyCodeLine{39         builder-\/>SetStringField(\textcolor{stringliteral}{"{}function"{}},      function);}
+\DoxyCodeLine{40         builder-\/>SetArrayField(\textcolor{stringliteral}{"{}type\_arguments"{}}, type\_arguments);}
+\DoxyCodeLine{41         builder-\/>SetArrayField(\textcolor{stringliteral}{"{}arguments"{}},      arguments);}
+\DoxyCodeLine{42         builder-\/>SetStringField(\textcolor{stringliteral}{"{}type"{}},         \textcolor{stringliteral}{"{}entry\_function\_payload"{}});}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     TSharedPtr<FJsonObject> ToJsonObject()}
+\DoxyCodeLine{46     \{}
+\DoxyCodeLine{47         \textcolor{keywordflow}{return} builder;}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 \};}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 USTRUCT(BlueprintType)}
+\DoxyCodeLine{52 struct \mbox{\hyperlink{struct_f_account_data}{FAccountData}}}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54     GENERATED\_BODY()}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     UPROPERTY() FString sequence\_number;    \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{57     UPROPERTY() FString authentication\_key; \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{58 \};}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 USTRUCT(BlueprintType)}
+\DoxyCodeLine{61 struct \mbox{\hyperlink{struct_f_account_signature}{FAccountSignature}}}
+\DoxyCodeLine{62 \{}
+\DoxyCodeLine{63     GENERATED\_BODY()}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString type;       \textcolor{comment}{// string}}
+\DoxyCodeLine{66     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString public\_key; \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{67     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString signature;  \textcolor{comment}{// string <hex>}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     TSharedPtr<FJsonObject> ToJsonObject()}
+\DoxyCodeLine{70     \{}
+\DoxyCodeLine{71         TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();}
+\DoxyCodeLine{72         builder-\/>SetStringField(\textcolor{stringliteral}{"{}type"{}}, type);}
+\DoxyCodeLine{73         builder-\/>SetStringField(\textcolor{stringliteral}{"{}public\_key"{}}, public\_key);}
+\DoxyCodeLine{74         builder-\/>SetStringField(\textcolor{stringliteral}{"{}signature"{}}, signature);}
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} builder;}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 USTRUCT(BlueprintType)}
+\DoxyCodeLine{80 struct \mbox{\hyperlink{struct_f_aptos_error}{FAptosError}}}
+\DoxyCodeLine{81 \{}
+\DoxyCodeLine{82     GENERATED\_BODY()}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     UPROPERTY() FString message;    \textcolor{comment}{// string}}
+\DoxyCodeLine{85     UPROPERTY() FString error\_code; \textcolor{comment}{// string}}
+\DoxyCodeLine{86     UPROPERTY() \textcolor{keywordtype}{int} vm\_error\_code;  \textcolor{comment}{// integer}}
+\DoxyCodeLine{87 \};}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 USTRUCT(BlueprintType)}
+\DoxyCodeLine{90 struct \mbox{\hyperlink{struct_f_encode_submission_request}{FEncodeSubmissionRequest}}}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92     GENERATED\_BODY()}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sender;                    \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{95     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sequence\_number;           \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{96     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) FString max\_gas\_amount;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{97     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) FString gas\_unit\_price;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{98     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) FString expiration\_timestamp\_secs; \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{99     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}} payload;    \textcolor{comment}{// object}}
+\DoxyCodeLine{100     UPROPERTY(BlueprintReadWrite, Category=\textcolor{stringliteral}{"{}APTOS SDK"{}}) TArray<FString> secondary\_signers; \textcolor{comment}{// array[string]<hex>}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     TSharedPtr<FJsonObject> ToJsonObject()}
+\DoxyCodeLine{103     \{}
+\DoxyCodeLine{104         TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();}
+\DoxyCodeLine{105         builder-\/>SetStringField(\textcolor{stringliteral}{"{}sender"{}},                    sender);}
+\DoxyCodeLine{106         builder-\/>SetStringField(\textcolor{stringliteral}{"{}sequence\_number"{}},           sequence\_number);}
+\DoxyCodeLine{107         builder-\/>SetStringField(\textcolor{stringliteral}{"{}max\_gas\_amount"{}},            max\_gas\_amount);}
+\DoxyCodeLine{108         builder-\/>SetStringField(\textcolor{stringliteral}{"{}gas\_unit\_price"{}},            gas\_unit\_price);}
+\DoxyCodeLine{109         builder-\/>SetStringField(\textcolor{stringliteral}{"{}expiration\_timestamp\_secs"{}}, expiration\_timestamp\_secs);}
+\DoxyCodeLine{110         builder-\/>SetObjectField(\textcolor{stringliteral}{"{}payload"{}},                   payload.ToJsonObject());}
+\DoxyCodeLine{111         }
+\DoxyCodeLine{112         \textcolor{keywordflow}{if}(!secondary\_signers.IsEmpty())}
+\DoxyCodeLine{113         \{}
+\DoxyCodeLine{114             TArray<TSharedPtr<FJsonValue>> signers;}
+\DoxyCodeLine{115             \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < signers.Num(); i++)}
+\DoxyCodeLine{116             \{}
+\DoxyCodeLine{117                 UPayloadBuilder::AddArrayItem(signers, secondary\_signers[i]);}
+\DoxyCodeLine{118             \}}
+\DoxyCodeLine{119             builder-\/>SetArrayField(\textcolor{stringliteral}{"{}secondary\_signers"{}}, signers);}
+\DoxyCodeLine{120         \}}
+\DoxyCodeLine{121         }
+\DoxyCodeLine{122         \textcolor{keywordflow}{return} builder;}
+\DoxyCodeLine{123     \}}
+\DoxyCodeLine{124 \};}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 USTRUCT(BlueprintType)}
+\DoxyCodeLine{127 struct \mbox{\hyperlink{struct_f_gas_estimation}{FGasEstimation}}}
+\DoxyCodeLine{128 \{}
+\DoxyCodeLine{129     GENERATED\_BODY()}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \textcolor{keywordtype}{int} deprioritized\_gas\_estimate; \textcolor{comment}{// integer}}
+\DoxyCodeLine{132     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \textcolor{keywordtype}{int} gas\_estimate;               \textcolor{comment}{// integer}}
+\DoxyCodeLine{133     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \textcolor{keywordtype}{int} prioritized\_gas\_estimate;   \textcolor{comment}{// integer}}
+\DoxyCodeLine{134 \};}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136 USTRUCT(BlueprintType)}
+\DoxyCodeLine{137 struct \mbox{\hyperlink{struct_f_index_response}{FIndexResponse}}}
+\DoxyCodeLine{138 \{}
+\DoxyCodeLine{139     GENERATED\_BODY()}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141     UPROPERTY() \textcolor{keywordtype}{int} chain\_id;                  \textcolor{comment}{// integer}}
+\DoxyCodeLine{142     UPROPERTY() FString epoch;                 \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{143     UPROPERTY() FString ledger\_version;        \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{144     UPROPERTY() FString oldest\_ledger\_version; \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{145     UPROPERTY() FString ledger\_timestamp;      \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{146     UPROPERTY() FString node\_role;             \textcolor{comment}{// string}}
+\DoxyCodeLine{147     UPROPERTY() FString oldest\_block\_height;   \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{148     UPROPERTY() FString block\_height;          \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{149     UPROPERTY() FString git\_hash;              \textcolor{comment}{// string}}
+\DoxyCodeLine{150 \};}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 USTRUCT(BlueprintType)}
+\DoxyCodeLine{153 struct \mbox{\hyperlink{struct_f_pending_transaction}{FPendingTransaction}}}
+\DoxyCodeLine{154 \{}
+\DoxyCodeLine{155     GENERATED\_BODY()}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString hash;                      \textcolor{comment}{// string}}
+\DoxyCodeLine{158     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sender;                    \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{159     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sequence\_number;           \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{160     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString max\_gas\_amount;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{161     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString gas\_unit\_price;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{162     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString expiration\_timestamp\_secs; \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{163     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}} payload;        \textcolor{comment}{// object}}
+\DoxyCodeLine{164     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_account_data}{FAccountData}} signature;            \textcolor{comment}{// object}}
+\DoxyCodeLine{165 \};}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167 USTRUCT(BlueprintType)}
+\DoxyCodeLine{168 struct \mbox{\hyperlink{struct_f_submit_transaction_request}{FSubmitTransactionRequest}}}
+\DoxyCodeLine{169 \{}
+\DoxyCodeLine{170     GENERATED\_BODY()}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sender;                    \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{173     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sequence\_number;           \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{174     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString max\_gas\_amount;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{175     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString gas\_unit\_price;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{176     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString expiration\_timestamp\_secs; \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{177     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}} payload;        \textcolor{comment}{// object}}
+\DoxyCodeLine{178     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_account_signature}{FAccountSignature}} signature;      \textcolor{comment}{// object}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180     TSharedPtr<FJsonObject> ToJsonObject()}
+\DoxyCodeLine{181     \{}
+\DoxyCodeLine{182         TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();}
+\DoxyCodeLine{183         builder-\/>SetStringField(\textcolor{stringliteral}{"{}sender"{}}, sender);}
+\DoxyCodeLine{184         builder-\/>SetStringField(\textcolor{stringliteral}{"{}sequence\_number"{}}, sequence\_number);}
+\DoxyCodeLine{185         builder-\/>SetStringField(\textcolor{stringliteral}{"{}max\_gas\_amount"{}}, max\_gas\_amount);}
+\DoxyCodeLine{186         builder-\/>SetStringField(\textcolor{stringliteral}{"{}gas\_unit\_price"{}}, gas\_unit\_price);}
+\DoxyCodeLine{187         builder-\/>SetStringField(\textcolor{stringliteral}{"{}expiration\_timestamp\_secs"{}}, expiration\_timestamp\_secs);}
+\DoxyCodeLine{188         builder-\/>SetObjectField(\textcolor{stringliteral}{"{}payload"{}}, payload.ToJsonObject());}
+\DoxyCodeLine{189         builder-\/>SetObjectField(\textcolor{stringliteral}{"{}signature"{}}, signature.ToJsonObject());}
+\DoxyCodeLine{190         \textcolor{keywordflow}{return} builder;}
+\DoxyCodeLine{191     \}}
+\DoxyCodeLine{192 \};}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194 USTRUCT(BlueprintType)}
+\DoxyCodeLine{195 struct \mbox{\hyperlink{struct_f_transaction}{FTransaction}}}
+\DoxyCodeLine{196 \{}
+\DoxyCodeLine{197     GENERATED\_BODY()}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString type;                      \textcolor{comment}{// string}}
+\DoxyCodeLine{200     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString hash;                      \textcolor{comment}{// string}}
+\DoxyCodeLine{201     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sender;                    \textcolor{comment}{// string<hex>}}
+\DoxyCodeLine{202     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString sequence\_number;           \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{203     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString max\_gas\_amount;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{204     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString gas\_unit\_price;            \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{205     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString expiration\_timestamp\_secs; \textcolor{comment}{// string<uint64>}}
+\DoxyCodeLine{206     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_transaction_payload}{FTransactionPayload}} payload;        \textcolor{comment}{// object}}
+\DoxyCodeLine{207     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) \mbox{\hyperlink{struct_f_account_data}{FAccountData}} signature;            \textcolor{comment}{// object}}
+\DoxyCodeLine{208 \};}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210 USTRUCT(BlueprintType)}
+\DoxyCodeLine{211 struct \mbox{\hyperlink{struct_f_aptos_account}{FAptosAccount}}}
+\DoxyCodeLine{212 \{}
+\DoxyCodeLine{213     GENERATED\_BODY()}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{keyword}{private}:}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217     std::vector<uint8\_t> seed;}
+\DoxyCodeLine{218     std::vector<uint8\_t> privateKey;}
+\DoxyCodeLine{219     std::vector<uint8\_t> publicKey;}
+\DoxyCodeLine{220     }
+\DoxyCodeLine{221 \textcolor{keyword}{public}:}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString Address;}
+\DoxyCodeLine{224     UPROPERTY(BlueprintReadWrite, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString PublicKey;}
+\DoxyCodeLine{225     UPROPERTY(BlueprintReadOnly, Category  = \textcolor{stringliteral}{"{}APTOS SDK"{}}) FString Seed;}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227     \mbox{\hyperlink{struct_f_aptos_account}{FAptosAccount}}() \{ \}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229     \textcolor{keywordtype}{void} CreateKeyPair()}
+\DoxyCodeLine{230     \{}
+\DoxyCodeLine{231         LibraryManager::GetInstance().crypto\_sign\_keypair(privateKey, publicKey);}
+\DoxyCodeLine{232         LibraryManager::GetInstance().crypto\_sign\_ed25519\_sk\_to\_seed(seed, privateKey);}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234         Seed      = FString(MathHelper::BytesToHex(seed.data(), seed.size()).c\_str());}
+\DoxyCodeLine{235         Address   = FString(GetAddress().c\_str());}
+\DoxyCodeLine{236         PublicKey = FString(MathHelper::BytesToHex(publicKey.data(), publicKey.size()).c\_str());}
+\DoxyCodeLine{237     \}}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     \textcolor{keywordtype}{void} CreateSeedKeyPair(std::vector<uint8\_t> \_seed)}
+\DoxyCodeLine{240     \{}
+\DoxyCodeLine{241         seed = \_seed;}
+\DoxyCodeLine{242         LibraryManager::GetInstance().crypto\_sign\_seed\_keypair(privateKey, publicKey, seed);}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244         Seed      = FString(MathHelper::BytesToHex(seed.data(), seed.size()).c\_str());}
+\DoxyCodeLine{245         Address   = FString(GetAddress().c\_str());}
+\DoxyCodeLine{246         PublicKey = FString(MathHelper::BytesToHex(publicKey.data(), publicKey.size()).c\_str());}
+\DoxyCodeLine{247     \}}
+\DoxyCodeLine{248 }
+\DoxyCodeLine{249     \textcolor{keywordtype}{void} CreateFromPrivateKey(std::vector<uint8\_t> \_sk)}
+\DoxyCodeLine{250     \{}
+\DoxyCodeLine{251         \textcolor{keyword}{auto} start = \_sk.begin();}
+\DoxyCodeLine{252         \textcolor{keyword}{auto} end   = \_sk.begin() + 32;}
+\DoxyCodeLine{253         std::vector<uint8\_t> \_seed(start, end);}
+\DoxyCodeLine{254         CreateSeedKeyPair(\_seed);}
+\DoxyCodeLine{255     \}}
+\DoxyCodeLine{256     }
+\DoxyCodeLine{257     \textcolor{keywordtype}{void} ExtractFromPrivateKey(std::vector<uint8\_t> \_sk)}
+\DoxyCodeLine{258     \{}
+\DoxyCodeLine{259         privateKey = \_sk;}
+\DoxyCodeLine{260         LibraryManager::GetInstance().crypto\_sign\_ed25519\_sk\_to\_pk(publicKey, privateKey);}
+\DoxyCodeLine{261         LibraryManager::GetInstance().crypto\_sign\_ed25519\_sk\_to\_seed(seed, privateKey);}
+\DoxyCodeLine{262 }
+\DoxyCodeLine{263         Seed      = FString(MathHelper::BytesToHex(seed.data(), seed.size()).c\_str());}
+\DoxyCodeLine{264         Address   = FString(GetAddress().c\_str());}
+\DoxyCodeLine{265         PublicKey = FString(MathHelper::BytesToHex(publicKey.data(), publicKey.size()).c\_str());}
+\DoxyCodeLine{266     \}}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268     std::string GetAddress()}
+\DoxyCodeLine{269     \{}
+\DoxyCodeLine{270         std::vector<uint8\_t> temporary = publicKey;}
+\DoxyCodeLine{271         temporary.push\_back(0x00); \textcolor{comment}{// Single Signature Scheme}}
+\DoxyCodeLine{272 }
+\DoxyCodeLine{273         std::string hash;}
+\DoxyCodeLine{274         std::vector<uint8\_t> bytes;}
+\DoxyCodeLine{275         MathHelper::Sha3Digest(temporary, \&hash, bytes);}
+\DoxyCodeLine{276         MathHelper::ApplyHexPrefix(hash);}
+\DoxyCodeLine{277         \textcolor{keywordflow}{return} hash;}
+\DoxyCodeLine{278     \}}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280     std::vector<uint8\_t> Sign(std::vector<uint8\_t> message)}
+\DoxyCodeLine{281     \{}
+\DoxyCodeLine{282         std::vector<uint8\_t> signature;}
+\DoxyCodeLine{283         LibraryManager::GetInstance().crypto\_sign\_detached(message, privateKey, signature);}
+\DoxyCodeLine{284         \textcolor{keywordflow}{return} signature;}
+\DoxyCodeLine{285     \}}
+\DoxyCodeLine{286 \};}
+\DoxyCodeLine{287 }
+\DoxyCodeLine{288 UCLASS()}
+\DoxyCodeLine{289 class APTOSSDK\_API \mbox{\hyperlink{class_u_aptos_schemas}{UAptosSchemas}} : public UUserDefinedStruct}
+\DoxyCodeLine{290 \{}
+\DoxyCodeLine{291     GENERATED\_BODY()}
+\DoxyCodeLine{292 \};}
+
+\end{DoxyCode}

@@ -1,0 +1,37 @@
+\hypertarget{struct_f_aptos_account}{}\doxysection{FAptos\+Account Struct Reference}
+\label{struct_f_aptos_account}\index{FAptosAccount@{FAptosAccount}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a8cdc5d8826a96be0e10ff6a95cd954f2}\label{struct_f_aptos_account_a8cdc5d8826a96be0e10ff6a95cd954f2}} 
+{\bfseries UPROPERTY} (Blueprint\+Read\+Write, Category=\char`\"{}APTOS SDK\char`\"{}) FString Address
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a5f008f163b2b830117c68cc6622ca1b4}\label{struct_f_aptos_account_a5f008f163b2b830117c68cc6622ca1b4}} 
+{\bfseries UPROPERTY} (Blueprint\+Read\+Write, Category=\char`\"{}APTOS SDK\char`\"{}) FString Public\+Key
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a1eaa0cc337efe43541e21be25cff4906}\label{struct_f_aptos_account_a1eaa0cc337efe43541e21be25cff4906}} 
+{\bfseries UPROPERTY} (Blueprint\+Read\+Only, Category=\char`\"{}APTOS SDK\char`\"{}) FString Seed
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a798981ef5ff0e392fe6eb268a8cdd2a7}\label{struct_f_aptos_account_a798981ef5ff0e392fe6eb268a8cdd2a7}} 
+void {\bfseries Create\+Key\+Pair} ()
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_aafd3a2b41332273f0896ccac0e213df3}\label{struct_f_aptos_account_aafd3a2b41332273f0896ccac0e213df3}} 
+void {\bfseries Create\+Seed\+Key\+Pair} (std\+::vector$<$ uint8\+\_\+t $>$ \+\_\+seed)
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a36d019842142881423dbba4bab59316f}\label{struct_f_aptos_account_a36d019842142881423dbba4bab59316f}} 
+void {\bfseries Create\+From\+Private\+Key} (std\+::vector$<$ uint8\+\_\+t $>$ \+\_\+sk)
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_ab7a63b449bfb9eb1496043b4046f65a1}\label{struct_f_aptos_account_ab7a63b449bfb9eb1496043b4046f65a1}} 
+void {\bfseries Extract\+From\+Private\+Key} (std\+::vector$<$ uint8\+\_\+t $>$ \+\_\+sk)
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_a1a460a8eff5fa2c6f3e9fe5e70b4d424}\label{struct_f_aptos_account_a1a460a8eff5fa2c6f3e9fe5e70b4d424}} 
+std\+::string {\bfseries Get\+Address} ()
+\item 
+\mbox{\Hypertarget{struct_f_aptos_account_ac5294fa9a7bf789f86efe716ea4e1b7a}\label{struct_f_aptos_account_ac5294fa9a7bf789f86efe716ea4e1b7a}} 
+std\+::vector$<$ uint8\+\_\+t $>$ {\bfseries Sign} (std\+::vector$<$ uint8\+\_\+t $>$ message)
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unreal\+Aptos\+SDK/\+Plugins/\+Aptos\+SDK/\+Source/\+Aptos\+SDK/\+Public/Aptos\+Schemas.\+h\end{DoxyCompactItemize}

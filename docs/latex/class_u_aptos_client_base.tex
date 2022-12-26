@@ -1,0 +1,83 @@
+\hypertarget{class_u_aptos_client_base}{}\doxysection{UAptos\+Client\+Base Class Reference}
+\label{class_u_aptos_client_base}\index{UAptosClientBase@{UAptosClientBase}}
+
+
+\mbox{\hyperlink{class_u_aptos_client_base}{UAptos\+Client\+Base}} provides helper functions to send GET or POST requests asynchronously.  
+
+
+
+
+{\ttfamily \#include $<$Aptos\+Client\+Base.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_u_aptos_client_base_a660f5fe79697a3bd522602fc8a7ed44d}{Send\+Request}} (FString \+\_\+url, FString \+\_\+verb, FString \+\_\+payload, TFunction\+Ref$<$ void(const TArray$<$ uint8 $>$, const FString, TShared\+Ptr$<$ FJson\+Object $>$)$>$ \+\_\+function, bool \+\_\+background\+Task)
+\begin{DoxyCompactList}\small\item\em Send\+Request function is used to send GET or POST request and the response will be received as a Json\+Object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_base_a1eb9532f72eb9c6c7579fd43133f5f47}{Send\+Request}} (FString \+\_\+url, FString \+\_\+verb, FString \+\_\+payload, TFunction\+Ref$<$ void(const TArray$<$ uint8 $>$, const FString, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&, TShared\+Ptr$<$ FJson\+Object $>$)$>$ \+\_\+function, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback, bool \+\_\+background\+Task)
+\begin{DoxyCompactList}\small\item\em Send\+Request function is used to send GET or POST request and the response will be received as a Json\+Object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_u_aptos_client_base}{UAptos\+Client\+Base}} provides helper functions to send GET or POST requests asynchronously. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_u_aptos_client_base_a660f5fe79697a3bd522602fc8a7ed44d}\label{class_u_aptos_client_base_a660f5fe79697a3bd522602fc8a7ed44d}} 
+\index{UAptosClientBase@{UAptosClientBase}!SendRequest@{SendRequest}}
+\index{SendRequest@{SendRequest}!UAptosClientBase@{UAptosClientBase}}
+\doxysubsubsection{\texorpdfstring{SendRequest()}{SendRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void UAptos\+Client\+Base\+::\+Send\+Request (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+url,  }\item[{FString}]{\+\_\+verb,  }\item[{FString}]{\+\_\+payload,  }\item[{TFunction\+Ref$<$ void(const TArray$<$ uint8 $>$, const FString, TShared\+Ptr$<$ FJson\+Object $>$)$>$}]{\+\_\+function,  }\item[{bool}]{\+\_\+background\+Task }\end{DoxyParamCaption})}
+
+
+
+Send\+Request function is used to send GET or POST request and the response will be received as a Json\+Object. 
+
+The function requires parameters described below and returns nothing.~\newline
+Inside the function, A Get or POST request is sent to the specified URL.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+url} & The URL to which the request will be sent. \\
+\hline
+{\em \+\_\+verb} & Whether the request is a GET or POST request. \\
+\hline
+{\em \+\_\+payload} & The payload data associated with the request \\
+\hline
+{\em \+\_\+function} & The function to be executed when a response is received. \\
+\hline
+{\em \+\_\+background\+Task} & Determines if the request to be processed as a background task. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_base_a1eb9532f72eb9c6c7579fd43133f5f47}\label{class_u_aptos_client_base_a1eb9532f72eb9c6c7579fd43133f5f47}} 
+\index{UAptosClientBase@{UAptosClientBase}!SendRequest@{SendRequest}}
+\index{SendRequest@{SendRequest}!UAptosClientBase@{UAptosClientBase}}
+\doxysubsubsection{\texorpdfstring{SendRequest()}{SendRequest()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void UAptos\+Client\+Base\+::\+Send\+Request (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+url,  }\item[{FString}]{\+\_\+verb,  }\item[{FString}]{\+\_\+payload,  }\item[{TFunction\+Ref$<$ void(const TArray$<$ uint8 $>$, const FString, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&, TShared\+Ptr$<$ FJson\+Object $>$)$>$}]{\+\_\+function,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback,  }\item[{bool}]{\+\_\+background\+Task }\end{DoxyParamCaption})}
+
+
+
+Send\+Request function is used to send GET or POST request and the response will be received as a Json\+Object. 
+
+The function requires parameters described below and returns nothing.~\newline
+Inside the function, A Get or POST request is sent to the specified URL.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+url} & The URL to which the request will be sent. \\
+\hline
+{\em \+\_\+verb} & Whether the request is a GET or POST request. \\
+\hline
+{\em \+\_\+payload} & The payload data associated with the request \\
+\hline
+{\em \+\_\+function} & The function to be executed when a response is received. \\
+\hline
+{\em \+\_\+callback} & The callback delegate to be executed when a response is received. \\
+\hline
+{\em \+\_\+background\+Task} & Determines if the request to be processed as a background task. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unreal\+Aptos\+SDK/\+Plugins/\+Aptos\+SDK/\+Source/\+Aptos\+SDK/\+Public/Aptos\+Client\+Base.\+h\end{DoxyCompactItemize}
