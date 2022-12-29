@@ -16,6 +16,8 @@ void \mbox{\hyperlink{class_u_aptos_client_ae28119cc861df61d79d42d622fe22296}{Ge
 \begin{DoxyCompactList}\small\item\em Gets the authentication key and the sequence number for an account address. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_aptos_client_aa2a6ea27a0572157259ac915f89c30b5}{Get\+Account\+Resource}} (FString \+\_\+address, FString \+\_\+resource\+\_\+type, FString \+\_\+qledger\+\_\+version, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
 \begin{DoxyCompactList}\small\item\em Gets an individual resource from a given account and at a specific ledger version. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a9819724f66f1b6b8b5c00fa41ffec296}{Get\+Account\+Resources}} (FString \+\_\+address, FString \+\_\+qledger\+\_\+version, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
+\begin{DoxyCompactList}\small\item\em Retrieves all account resources for a given account and a specific ledger version. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_aptos_client_a1e56506da6b9fa7d082a6899047fa399}{Get\+Ledger\+Info}} (const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
 \begin{DoxyCompactList}\small\item\em Gets the latest ledger information, including data such as chain ID, role type, ledger versions, epoch, etc. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_aptos_client_a345d111a871fda01eae5f73b9086eb78}{Get\+Transactions}} (int \+\_\+qlimit, FString \+\_\+qstart, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
@@ -30,6 +32,14 @@ void \mbox{\hyperlink{class_u_aptos_client_a8c76999a54553febac642f559a7ea8e8}{En
 \begin{DoxyCompactList}\small\item\em Validates the request format, and then returns that request encoded in a BCS message. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_aptos_client_a891b9b76a3dc0ef6121836e949747d1c}{Estimate\+Gas\+Price}} (const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
 \begin{DoxyCompactList}\small\item\em Gets the gas estimation by taking the median of the last 100,000 transactions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a34bd0641e260d815f061ddb9acbdce3f}{Get\+Events\+By\+Creation\+Number}} (FString \+\_\+address, FString \+\_\+creation\+\_\+number, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
+\begin{DoxyCompactList}\small\item\em Returns a transaction events using the creation number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a05ed43a9d0aaa7a2eb6e068f17e77ed9}{Get\+Events\+By\+Event\+Handle}} (FString \+\_\+address, FString \+\_\+event\+\_\+handle, FString \+\_\+field\+\_\+name, int \+\_\+limit, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
+\begin{DoxyCompactList}\small\item\em Returns events emitted to the given account matching the specified event type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a9f7a67ab01c7b4a8a1a3b83f4b495a79}{Get\+Table\+Item}} (FString \+\_\+table\+\_\+handle, FString \+\_\+ledger\+\_\+version, FString \+\_\+payload, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
+\begin{DoxyCompactList}\small\item\em Gets a table item at a specific ledger version from the table identified by table handle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a93f7c4a73a30055c47e6c9ce84ca189d}{Get\+Raw\+Table\+Item}} (FString \+\_\+table\+\_\+handle, FString \+\_\+ledger\+\_\+version, FString \+\_\+payload, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&Result)
+\begin{DoxyCompactList}\small\item\em Gets a table item at a specific ledger version from the table identified by table handle. \end{DoxyCompactList}\item 
 FAptos\+Account \mbox{\hyperlink{class_u_aptos_client_af76713e46d03ca16af541729e198d283}{Get\+Alice\+Account}} ()
 \begin{DoxyCompactList}\small\item\em Gets a test Aptos account for a person named Alice. \end{DoxyCompactList}\item 
 FAptos\+Account \mbox{\hyperlink{class_u_aptos_client_ac69df7af045a01f165c4c41d63512295}{Get\+Bob\+Account}} ()
@@ -41,7 +51,15 @@ FAccount\+Signature \mbox{\hyperlink{class_u_aptos_client_a629fedefb43a29195b78d
 FSubmit\+Transaction\+Request \mbox{\hyperlink{class_u_aptos_client_a1a7e073fe1276619da1b3e6ce75866e5}{Get\+Transaction\+Submit\+Request}} (FEncode\+Submission\+Request \+\_\+encode\+Submission\+Request, FAccount\+Signature \+\_\+transaction\+Signature)
 \begin{DoxyCompactList}\small\item\em Generates a signed transaction (encoded as BCS) request ready to submit. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_u_aptos_client_ac65fd113fb412f7db097a2d0c88bc027}{Add\+Argument}} (TArray$<$ TShared\+Ptr$<$ FJson\+Value $>$ $>$ \&\+\_\+array, const FString \+\_\+field)
-\begin{DoxyCompactList}\small\item\em Adds a custom data type to an Array for json serialization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Adds a custom data type to an Array for json serialization. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a07831551a42b69acd95b1b8861069cd2}{Get\+Coin\+Data}} (const FString \+\_\+content, FString \&Coin)
+\begin{DoxyCompactList}\small\item\em Gets the coin value for an account. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a62bb3ceccde4a75de269b024c91bfc8a}{Get\+Collection\+Data}} (const FString \+\_\+content, const FString \+\_\+collection\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries collection data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a15f7ea2f2b833c685520e4673f9db92c}{Get\+Token\+Data}} (const FString \+\_\+content, const FString \+\_\+creator, const FString \+\_\+collection\+\_\+name, const FString \+\_\+token\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries token data from collection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_aptos_client_a42bbbec2ad4b3fa4f896c66d60b9604d}{Get\+Token}} (const FString \+\_\+content, const FString \+\_\+property\+\_\+version, const FString \+\_\+creator, const FString \+\_\+collection\+\_\+name, const FString \+\_\+token\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries token balance for a token account. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -84,6 +102,29 @@ Gets an individual resource from a given account and at a specific ledger versio
 {\em \+\_\+resource\+\_\+type} & Name of the struct to retrieve. \\
 \hline
 {\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em Result} & A callback to be executed when the result is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a9819724f66f1b6b8b5c00fa41ffec296}\label{class_u_aptos_client_a9819724f66f1b6b8b5c00fa41ffec296}} 
+\index{UAptosClient@{UAptosClient}!GetAccountResources@{GetAccountResources}}
+\index{GetAccountResources@{GetAccountResources}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetAccountResources()}{GetAccountResources()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Account\+Resources (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+qledger\+\_\+version,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{Result }\end{DoxyParamCaption})}
+
+
+
+Retrieves all account resources for a given account and a specific ledger version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the auth key and the sequence number to be received. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+limit} & Max number of account resources to retrieve. \\
+\hline
+{\em \+\_\+start} & Cursor specifying where to start for pagination. \\
 \hline
 {\em Result} & A callback to be executed when the result is successful. \\
 \hline
@@ -211,6 +252,94 @@ Gets the gas estimation by taking the median of the last 100,000 transactions.
 {\em Result} & A callback to be executed when the result is successful. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a34bd0641e260d815f061ddb9acbdce3f}\label{class_u_aptos_client_a34bd0641e260d815f061ddb9acbdce3f}} 
+\index{UAptosClient@{UAptosClient}!GetEventsByCreationNumber@{GetEventsByCreationNumber}}
+\index{GetEventsByCreationNumber@{GetEventsByCreationNumber}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetEventsByCreationNumber()}{GetEventsByCreationNumber()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Events\+By\+Creation\+Number (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+creation\+\_\+number,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{Result }\end{DoxyParamCaption})}
+
+
+
+Returns a transaction events using the creation number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The account\textquotesingle{}s address for which to retrieve the events. \\
+\hline
+{\em \+\_\+creation\+\_\+number} & Creation number corresponding to the event stream originating from the given account. \\
+\hline
+{\em \+\_\+limit} & Max number of events to retrieve. \\
+\hline
+{\em \+\_\+start} & Starting sequence number of events. \\
+\hline
+{\em Result} & A callback to be executed when the result is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a05ed43a9d0aaa7a2eb6e068f17e77ed9}\label{class_u_aptos_client_a05ed43a9d0aaa7a2eb6e068f17e77ed9}} 
+\index{UAptosClient@{UAptosClient}!GetEventsByEventHandle@{GetEventsByEventHandle}}
+\index{GetEventsByEventHandle@{GetEventsByEventHandle}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetEventsByEventHandle()}{GetEventsByEventHandle()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Events\+By\+Event\+Handle (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+event\+\_\+handle,  }\item[{FString}]{\+\_\+field\+\_\+name,  }\item[{int}]{\+\_\+limit,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{Result }\end{DoxyParamCaption})}
+
+
+
+Returns events emitted to the given account matching the specified event type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The account\textquotesingle{}s address for which to retrieve the events. \\
+\hline
+{\em \+\_\+event\+\_\+handle} & Name of struct to lookup event handle. \\
+\hline
+{\em \+\_\+field\+\_\+name} & Name of field to lookup event handle. \\
+\hline
+{\em \+\_\+limit} & Max number of events to retrieve. \\
+\hline
+{\em Result} & A callback to be executed when the result is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a9f7a67ab01c7b4a8a1a3b83f4b495a79}\label{class_u_aptos_client_a9f7a67ab01c7b4a8a1a3b83f4b495a79}} 
+\index{UAptosClient@{UAptosClient}!GetTableItem@{GetTableItem}}
+\index{GetTableItem@{GetTableItem}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetTableItem()}{GetTableItem()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Table\+Item (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+table\+\_\+handle,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{FString}]{\+\_\+payload,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{Result }\end{DoxyParamCaption})}
+
+
+
+Gets a table item at a specific ledger version from the table identified by table handle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+table\+\_\+handle} & Table handle hex encoded 32-\/byte string. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & Ledger version to get state of account. \\
+\hline
+{\em \+\_\+payload} & The table item request containing the key\+\_\+type, value\+\_\+type and key. \\
+\hline
+{\em Result} & A callback to be executed when the result is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a93f7c4a73a30055c47e6c9ce84ca189d}\label{class_u_aptos_client_a93f7c4a73a30055c47e6c9ce84ca189d}} 
+\index{UAptosClient@{UAptosClient}!GetRawTableItem@{GetRawTableItem}}
+\index{GetRawTableItem@{GetRawTableItem}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetRawTableItem()}{GetRawTableItem()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Raw\+Table\+Item (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+table\+\_\+handle,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{FString}]{\+\_\+payload,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{Result }\end{DoxyParamCaption})}
+
+
+
+Gets a table item at a specific ledger version from the table identified by table handle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+table\+\_\+handle} & Table handle hex encoded 32-\/byte string. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & Ledger version to get state of account. \\
+\hline
+{\em \+\_\+payload} & The table item request containing only key. \\
+\hline
+{\em Result} & A callback to be executed when the result is successful. \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{class_u_aptos_client_af76713e46d03ca16af541729e198d283}\label{class_u_aptos_client_af76713e46d03ca16af541729e198d283}} 
 \index{UAptosClient@{UAptosClient}!GetAliceAccount@{GetAliceAccount}}
 \index{GetAliceAccount@{GetAliceAccount}!UAptosClient@{UAptosClient}}
@@ -315,6 +444,96 @@ Adds a custom data type to an Array for json serialization.
 {\em \+\_\+array} & The source array. \\
 \hline
 {\em \+\_\+field} & The custom data type to be added to the source array. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a07831551a42b69acd95b1b8861069cd2}\label{class_u_aptos_client_a07831551a42b69acd95b1b8861069cd2}} 
+\index{UAptosClient@{UAptosClient}!GetCoinData@{GetCoinData}}
+\index{GetCoinData@{GetCoinData}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetCoinData()}{GetCoinData()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Coin\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{FString \&}]{Coin }\end{DoxyParamCaption})}
+
+
+
+Gets the coin value for an account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::coin\+::\+Coin\+Store$<$0x1\+::aptos\+\_\+coin\+::\+Aptos\+Coin$>$). \\
+\hline
+{\em Coin} & The value of the coin. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a62bb3ceccde4a75de269b024c91bfc8a}\label{class_u_aptos_client_a62bb3ceccde4a75de269b024c91bfc8a}} 
+\index{UAptosClient@{UAptosClient}!GetCollectionData@{GetCollectionData}}
+\index{GetCollectionData@{GetCollectionData}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetCollectionData()}{GetCollectionData()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Collection\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries collection data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Collections). \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em Table\+Handle} & The table handle. \\
+\hline
+{\em Table\+Item\+Request} & The table item request. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a15f7ea2f2b833c685520e4673f9db92c}\label{class_u_aptos_client_a15f7ea2f2b833c685520e4673f9db92c}} 
+\index{UAptosClient@{UAptosClient}!GetTokenData@{GetTokenData}}
+\index{GetTokenData@{GetTokenData}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetTokenData()}{GetTokenData()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Token\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+creator,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{const FString}]{\+\_\+token\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries token data from collection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Collections). \\
+\hline
+{\em \+\_\+creator} & The address who created the token. \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em \+\_\+token\+\_\+name} & The name of the token. \\
+\hline
+{\em Table\+Handle} & The table handle. \\
+\hline
+{\em Table\+Item\+Request} & The table item request. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_aptos_client_a42bbbec2ad4b3fa4f896c66d60b9604d}\label{class_u_aptos_client_a42bbbec2ad4b3fa4f896c66d60b9604d}} 
+\index{UAptosClient@{UAptosClient}!GetToken@{GetToken}}
+\index{GetToken@{GetToken}!UAptosClient@{UAptosClient}}
+\doxysubsubsection{\texorpdfstring{GetToken()}{GetToken()}}
+{\footnotesize\ttfamily void UAptos\+Client\+::\+Get\+Token (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+property\+\_\+version,  }\item[{const FString}]{\+\_\+creator,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{const FString}]{\+\_\+token\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries token balance for a token account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Token\+Store). \\
+\hline
+{\em \+\_\+property\+\_\+version} & Property version. \\
+\hline
+{\em \+\_\+creator} & The address who created the token. \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em \+\_\+token\+\_\+name} & The name of the token. \\
+\hline
+{\em Table\+Handle} & The table handle. \\
+\hline
+{\em Table\+Item\+Request} & The table item request. \\
 \hline
 \end{DoxyParams}
 

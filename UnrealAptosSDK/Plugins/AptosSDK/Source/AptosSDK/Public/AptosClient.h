@@ -29,6 +29,16 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void GetAccountResource(FString _address, FString _resource_type, FString _qledger_version, const FAptosCallCompleteDynamicDelegate& Result);
 
+	/// Retrieves all account resources for a given account and a specific ledger version.
+	///
+	/// @param _address The address for which the auth key and the sequence number to be received.
+	/// @param _ledger_version A version for the ledger or the latest ledger version is retrieved if no version is specified.
+	/// @param _limit Max number of account resources to retrieve.
+	/// @param _start Cursor specifying where to start for pagination.
+	/// @param Result A callback to be executed when the result is successful.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetAccountResources(FString _address, FString _qledger_version, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate& Result);
+
 	/// Gets the latest ledger information, including data such as chain ID, role type, ledger versions, epoch, etc.
 	///
 	/// @param Result A callback to be executed when the result is successful.
@@ -79,6 +89,44 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
 	void EstimateGasPrice(const FAptosCallCompleteDynamicDelegate& Result);
 
+	/// Returns a transaction events using the creation number.
+	///
+	/// @param _address The account's address for which to retrieve the events.
+	/// @param _creation_number Creation number corresponding to the event stream originating from the given account.
+	/// @param _limit Max number of events to retrieve.
+	/// @param _start Starting sequence number of events.
+	/// @param Result A callback to be executed when the result is successful.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetEventsByCreationNumber(FString _address, FString _creation_number, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate& Result);
+
+	/// Returns events emitted to the given account matching the specified event type.
+	///
+	/// @param _address The account's address for which to retrieve the events.
+	/// @param _event_handle Name of struct to lookup event handle.
+	/// @param _field_name Name of field to lookup event handle.
+	/// @param _limit Max number of events to retrieve.
+	/// @param Result A callback to be executed when the result is successful.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetEventsByEventHandle(FString _address, FString _event_handle, FString _field_name, int _limit, const FAptosCallCompleteDynamicDelegate& Result);
+
+	/// Gets a table item at a specific ledger version from the table identified by table handle.
+	///
+	/// @param _table_handle Table handle hex encoded 32-byte string.
+	/// @param _ledger_version Ledger version to get state of account.
+	/// @param _payload The table item request containing the key_type, value_type and key.
+	/// @param Result A callback to be executed when the result is successful.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetTableItem(FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate& Result);
+
+	/// Gets a table item at a specific ledger version from the table identified by table handle.
+	///
+	/// @param _table_handle Table handle hex encoded 32-byte string.
+	/// @param _ledger_version Ledger version to get state of account.
+	/// @param _payload The table item request containing only key.
+	/// @param Result A callback to be executed when the result is successful.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetRawTableItem(FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate& Result);
+
 	/// Gets a test Aptos account for a person named Alice.
 	///
 	/// The function doesn't require any parameters and returns an Aptos account for test purposes.\n
@@ -125,4 +173,43 @@ public:
 	/// @param _array The source array.
 	/// @param _field The custom data type to be added to the source array.
 	void AddArgument(TArray<TSharedPtr<FJsonValue>>& _array, const FString _field);
+
+	/// Gets the coin value for an account.
+	///
+	/// @param _content The response received from GetAccountResource (0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>).
+	/// @param Coin The value of the coin.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetCoinData(const FString _content, FString& Coin);
+
+	/// Queries collection data.
+	///
+	/// @param _content The response received from GetAccountResource (0x1::token::Collections).
+	/// @param _collection_name The name of the collection.
+	/// @param TableHandle The table handle.
+	/// @param TableItemRequest The table item request.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetCollectionData(const FString _content, const FString _collection_name, FString& TableHandle, FString& TableItemRequest);
+	
+	/// Queries token data from collection.
+	///
+	/// @param _content The response received from GetAccountResource (0x1::token::Collections).
+	/// @param _creator The address who created the token.
+	/// @param _collection_name The name of the collection.
+	/// @param _token_name The name of the token.
+	/// @param TableHandle The table handle.
+	/// @param TableItemRequest The table item request.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetTokenData(const FString _content, const FString _creator, const FString _collection_name, const FString _token_name, FString& TableHandle, FString& TableItemRequest);
+	
+	/// Queries token balance for a token account.
+	///
+	/// @param _content The response received from GetAccountResource (0x1::token::TokenStore).
+	/// @param _property_version Property version.
+	/// @param _creator The address who created the token.
+	/// @param _collection_name The name of the collection.
+	/// @param _token_name The name of the token.
+	/// @param TableHandle The table handle.
+	/// @param TableItemRequest The table item request.
+	UFUNCTION(BlueprintCallable, Category = "APTOS SDK")
+	void GetToken(const FString _content, const FString _property_version, const FString _creator, const FString _collection_name, const FString _token_name, FString& TableHandle, FString& TableItemRequest);
 };

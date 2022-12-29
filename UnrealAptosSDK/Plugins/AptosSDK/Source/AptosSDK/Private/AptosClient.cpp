@@ -29,10 +29,19 @@ void UAptosClient::GetAccountResource(FString _address, FString _resource_type, 
 	SendRequest(url, "GET", "", [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetAccountResource: %s"), *content);
-			TSharedPtr<FJsonObject> data = jsonObject->GetObjectField("data");
-			TSharedPtr<FJsonObject> coin = data->GetObjectField("coin");
-			FString value = coin->GetStringField("value");
-			callback.ExecuteIfBound(content, value);
+			callback.ExecuteIfBound(content, "");
+		}, Result, false);
+}
+
+void UAptosClient::GetAccountResources(FString _address, FString _qledger_version, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate& Result)
+{
+	FString url = FString("https://fullnode.devnet.aptoslabs.com/v1/accounts/").Append(_address).Append("/resources");
+	UE_LOG(LogTemp, Warning, TEXT("GetAccountResources - url : %s"), *url);
+	SendRequest(url, "GET", "", [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetAccountResources: %s"), *content);
+			
+			callback.ExecuteIfBound(content, "");
 		}, Result, false);
 }
 
@@ -140,6 +149,58 @@ void UAptosClient::EstimateGasPrice(const FAptosCallCompleteDynamicDelegate& Res
 		}, Result, false);
 }
 
+void UAptosClient::GetEventsByCreationNumber(FString _address, FString _creation_number, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate& Result)
+{
+	FString url = FString("https://fullnode.devnet.aptoslabs.com/v1/accounts/").Append(_address).Append("/events/").Append(_creation_number);
+	UE_LOG(LogTemp, Warning, TEXT("url : %s"), *url);
+	SendRequest(url, "GET", "", [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetEventsByCreationNumber: %s"), *content);
+			callback.ExecuteIfBound(content, "");
+
+		}, Result, false);
+}
+
+void UAptosClient::GetEventsByEventHandle(FString _address, FString _event_handle, FString _field_name, int _limit, const FAptosCallCompleteDynamicDelegate& Result)
+{
+	FString url = FString("https://fullnode.devnet.aptoslabs.com/v1/accounts/").Append(_address).Append("/events/").Append(_event_handle).Append("/").Append(_field_name);
+	UE_LOG(LogTemp, Warning, TEXT("url : %s"), *url);
+	SendRequest(url, "GET", "", [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetEventsByEventHandle: %s"), *content);
+			callback.ExecuteIfBound(content, "");
+
+		}, Result, false);
+}
+
+void UAptosClient::GetTableItem(FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate& Result)
+{
+	UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetTableItem: payload: %s"), *_payload);
+
+	FString url = FString("https://fullnode.devnet.aptoslabs.com/v1/tables/").Append(_table_handle).Append("/item");
+	UE_LOG(LogTemp, Warning, TEXT("url : %s"), *url);
+	SendRequest(url, "POST", _payload, [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetTableItem: %s"), *content);
+			callback.ExecuteIfBound(content, "");
+
+		}, Result, false);
+}
+
+void UAptosClient::GetRawTableItem(FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate& Result)
+{
+	UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetRawTableItem: payload: %s"), *_payload);
+
+	FString url = FString("https://fullnode.devnet.aptoslabs.com/v1/tables/").Append(_table_handle).Append("/raw_item");
+	UE_LOG(LogTemp, Warning, TEXT("url : %s"), *url);
+	SendRequest(url, "POST", _payload, [this](const TArray<uint8> bytes, const FString content, const FAptosCallCompleteDynamicDelegate& callback, TSharedPtr<FJsonObject> jsonObject)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("UAptosClient - GetRawTableItem: %s"), *content);
+			callback.ExecuteIfBound(content, "");
+
+		}, Result, false);
+}
+
 FAptosAccount UAptosClient::GetAliceAccount()
 {
 	std::vector<uint8_t> sk
@@ -199,23 +260,23 @@ FEncodeSubmissionRequest UAptosClient::GetEncodeSubmissionRequest(FString _sende
 	}
 
 	FTransactionPayload payload;
-	payload.type			  = _type;
-	payload.function		  = _function;
-	payload.type_arguments	  = type_arguments;
-	payload.arguments	      = arguments;
+	payload.type = _type;
+	payload.function = _function;
+	payload.type_arguments = type_arguments;
+	payload.arguments = arguments;
 	payload.Update();
 
 	FEncodeSubmissionRequest request;
-	request.sender					  = _sender;
-	request.sequence_number			  = FString::FromInt(FCString::Strtoui64(*_sequence_number, NULL, 10));
-	request.max_gas_amount			  = FString::FromInt(FCString::Strtoui64(*_max_gas_amount, NULL, 10));
-	request.gas_unit_price			  = FString::FromInt(FCString::Strtoui64(*_gas_estimate, NULL, 10));
+	request.sender = _sender;
+	request.sequence_number = FString::FromInt(FCString::Strtoui64(*_sequence_number, NULL, 10));
+	request.max_gas_amount = FString::FromInt(FCString::Strtoui64(*_max_gas_amount, NULL, 10));
+	request.gas_unit_price = FString::FromInt(FCString::Strtoui64(*_gas_estimate, NULL, 10));
 	request.expiration_timestamp_secs = FString::FromInt(MathHelper::GetExpireTimestamp(FCString::Strtoui64(*_expireInSecs, NULL, 10)));
-	request.payload					  = payload;
+	request.payload = payload;
 
-	if(!_secondary_signers.IsEmpty()) 
-		request.secondary_signers     = _secondary_signers;
-	
+	if (!_secondary_signers.IsEmpty())
+		request.secondary_signers = _secondary_signers;
+
 	return request;
 }
 
@@ -303,4 +364,112 @@ void UAptosClient::AddArgument(TArray<TSharedPtr<FJsonValue>>& _array, const FSt
 		double value = FCString::Atod(*val);
 		_array.Add(MakeShareable(new FJsonValueNumber(value)));
 	}
+}
+
+void UAptosClient::GetCoinData(const FString _content, FString& Coin)
+{
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(_content);
+	if (!FJsonSerializer::Deserialize(Reader, JsonObject))
+	{
+		UE_LOG(LogTemp, Error, TEXT("AptosClient - GetCoinData - Couldn't deserilize - content: %s"), *_content);
+		return;
+	}
+
+	TSharedPtr<FJsonObject> data = JsonObject->GetObjectField("data");
+	TSharedPtr<FJsonObject> coin = data->GetObjectField("coin");
+	FString value = coin->GetStringField("value");
+	Coin = value;
+}
+
+void UAptosClient::GetCollectionData(const FString _content, const FString _collection_name, FString& TableHandle, FString& TableItemRequest)
+{
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(_content);
+	if (!FJsonSerializer::Deserialize(Reader, JsonObject))
+	{
+		UE_LOG(LogTemp, Error, TEXT("AptosClient - GetCollectionData - handle couldn't be found - content: %s"), *_content);
+		TableHandle		 = FString("");
+		TableItemRequest = FString("");
+		return;
+	}
+
+	TSharedPtr<FJsonObject> data			= JsonObject->GetObjectField("data");
+	TSharedPtr<FJsonObject> collection_data = data->GetObjectField("collection_data");
+	FString handle							= collection_data->GetStringField("handle");
+
+	TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();
+	builder->SetStringField("key_type",   FString("0x1::string::String"));
+	builder->SetStringField("value_type", FString("0x3::token::CollectionData"));
+	builder->SetStringField("key",        _collection_name);
+
+	TableHandle = handle;
+	TableItemRequest = UPayloadBuilder::Build(builder);
+}
+
+void UAptosClient::GetTokenData(const FString _content, const FString _creator, const FString _collection_name, const FString _token_name, FString& TableHandle, FString& TableItemRequest)
+{
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(_content);
+	if (!FJsonSerializer::Deserialize(Reader, JsonObject))
+	{
+		UE_LOG(LogTemp, Error, TEXT("AptosClient - GetTokenData - handle couldn't be found - content: %s"), *_content);
+		TableHandle      = FString("");
+		TableItemRequest = FString("");
+		return;
+	}
+
+	FString type = JsonObject->GetStringField("type");
+	TSharedPtr<FJsonObject> data = JsonObject->GetObjectField("data");
+	TSharedPtr<FJsonObject> token_data = data->GetObjectField("token_data");
+	FString handle = token_data->GetStringField("handle");
+
+	TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();
+	builder->SetStringField("key_type",   FString("0x3::token::TokenDataId"));
+	builder->SetStringField("value_type", FString("0x3::token::TokenData"));
+
+	TSharedPtr<FJsonObject> key = UPayloadBuilder::GetBuilder();
+	key->SetStringField("creator",    _creator);
+	key->SetStringField("collection", _collection_name);
+	key->SetStringField("name",       _token_name);
+
+	builder->SetObjectField("key", key);
+
+	TableHandle = handle;
+	TableItemRequest = UPayloadBuilder::Build(builder);
+}
+
+void UAptosClient::GetToken(const FString _content, const FString _property_version, const FString _creator, const FString _collection_name, const FString _token_name, FString& TableHandle, FString& TableItemRequest)
+{
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(_content);
+	if (!FJsonSerializer::Deserialize(Reader, JsonObject))
+	{
+		UE_LOG(LogTemp, Error, TEXT("AptosClient - GetToken - handle couldn't be found - content: %s"), *_content);
+		TableHandle = FString("");
+		TableItemRequest = FString("");
+		return;
+	}
+
+	FString type = JsonObject->GetStringField("type");
+	TSharedPtr<FJsonObject> data = JsonObject->GetObjectField("data");
+	TSharedPtr<FJsonObject> tokens = data->GetObjectField("tokens");
+	FString handle = tokens->GetStringField("handle");
+
+	TSharedPtr<FJsonObject> token_data_id_object = UPayloadBuilder::GetBuilder();
+	token_data_id_object->SetStringField("creator", _creator);
+	token_data_id_object->SetStringField("collection", _collection_name);
+	token_data_id_object->SetStringField("name", _token_name);
+
+	TSharedPtr<FJsonObject> key_object = UPayloadBuilder::GetBuilder();
+	key_object->SetObjectField("token_data_id",    token_data_id_object);
+	key_object->SetStringField("property_version", _property_version);
+
+	TSharedPtr<FJsonObject> builder = UPayloadBuilder::GetBuilder();
+	builder->SetStringField("key_type",   FString("0x3::token::TokenId"));
+	builder->SetStringField("value_type", FString("0x3::token::Token"));
+	builder->SetObjectField("key",        key_object);
+
+	TableHandle      = handle;
+	TableItemRequest = UPayloadBuilder::Build(builder);
 }

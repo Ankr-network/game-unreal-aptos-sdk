@@ -21,43 +21,70 @@
 \DoxyCodeLine{29     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
 \DoxyCodeLine{30     \textcolor{keywordtype}{void} GetAccountResource(FString \_address, FString \_resource\_type, FString \_qledger\_version, const FAptosCallCompleteDynamicDelegate\& Result);}
 \DoxyCodeLine{31 }
-\DoxyCodeLine{35     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{36     \textcolor{keywordtype}{void} GetLedgerInfo(const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{37     }
-\DoxyCodeLine{43     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{44     \textcolor{keywordtype}{void} GetTransactions(\textcolor{keywordtype}{int} \_qlimit, FString \_qstart, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{45 }
-\DoxyCodeLine{50     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{51     \textcolor{keywordtype}{void} SubmitTransaction(FSubmitTransactionRequest \_submitTransactionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{52 }
-\DoxyCodeLine{57     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{58     \textcolor{keywordtype}{void} GetTransactionByHash(FString \_txn\_hash, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{59 }
-\DoxyCodeLine{66     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{67     \textcolor{keywordtype}{void} GetAccountTransactions(FString \_address, \textcolor{keywordtype}{int} \_plimit, FString \_pstart, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{68 }
-\DoxyCodeLine{73     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{74     \textcolor{keywordtype}{void} EncodeSubmission(FEncodeSubmissionRequest \_encodeSubmissionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{79     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{80     \textcolor{keywordtype}{void} EstimateGasPrice(const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{81 }
-\DoxyCodeLine{85     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{86     FAptosAccount GetAliceAccount();}
-\DoxyCodeLine{87     }
-\DoxyCodeLine{91     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{92     FAptosAccount GetBobAccount();}
-\DoxyCodeLine{93 }
-\DoxyCodeLine{106     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{107     FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString \_sender, FString \_sequence\_number, FString \_max\_gas\_amount, FString \_gas\_estimate, FString \_expireInSecs, FString \_type, FString \_function, TArray<FString> \_type\_arguments, TArray<FArgument> \_arguments, TArray<FString> \_secondary\_signers);}
-\DoxyCodeLine{108 }
-\DoxyCodeLine{113     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{114     FAccountSignature GetTransactionSignature(FAptosAccount \_sender, FString \_bcsMessage);}
-\DoxyCodeLine{115 }
-\DoxyCodeLine{120     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{121     FSubmitTransactionRequest GetTransactionSubmitRequest(FEncodeSubmissionRequest \_encodeSubmissionRequest, FAccountSignature \_transactionSignature);}
-\DoxyCodeLine{122 }
-\DoxyCodeLine{127     \textcolor{keywordtype}{void} AddArgument(TArray<TSharedPtr<FJsonValue>>\& \_array, const FString \_field);}
-\DoxyCodeLine{128 \};}
+\DoxyCodeLine{39     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{40     \textcolor{keywordtype}{void} GetAccountResources(FString \_address, FString \_qledger\_version, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{45     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{46     \textcolor{keywordtype}{void} GetLedgerInfo(const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{47     }
+\DoxyCodeLine{53     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{54     \textcolor{keywordtype}{void} GetTransactions(\textcolor{keywordtype}{int} \_qlimit, FString \_qstart, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{60     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} SubmitTransaction(FSubmitTransactionRequest \_submitTransactionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{67     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{68     \textcolor{keywordtype}{void} GetTransactionByHash(FString \_txn\_hash, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{76     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} GetAccountTransactions(FString \_address, \textcolor{keywordtype}{int} \_plimit, FString \_pstart, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{83     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{84     \textcolor{keywordtype}{void} EncodeSubmission(FEncodeSubmissionRequest \_encodeSubmissionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{89     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{90     \textcolor{keywordtype}{void} EstimateGasPrice(const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{99     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{100     \textcolor{keywordtype}{void} GetEventsByCreationNumber(FString \_address, FString \_creation\_number, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{109     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{110     \textcolor{keywordtype}{void} GetEventsByEventHandle(FString \_address, FString \_event\_handle, FString \_field\_name, \textcolor{keywordtype}{int} \_limit, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{118     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{119     \textcolor{keywordtype}{void} GetTableItem(FString \_table\_handle, FString \_ledger\_version, FString \_payload, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{127     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{128     \textcolor{keywordtype}{void} GetRawTableItem(FString \_table\_handle, FString \_ledger\_version, FString \_payload, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{133     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{134     FAptosAccount GetAliceAccount();}
+\DoxyCodeLine{135     }
+\DoxyCodeLine{139     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{140     FAptosAccount GetBobAccount();}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{154     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{155     FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString \_sender, FString \_sequence\_number, FString \_max\_gas\_amount, FString \_gas\_estimate, FString \_expireInSecs, FString \_type, FString \_function, TArray<FString> \_type\_arguments, TArray<FArgument> \_arguments, TArray<FString> \_secondary\_signers);}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{161     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{162     FAccountSignature GetTransactionSignature(FAptosAccount \_sender, FString \_bcsMessage);}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{168     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{169     FSubmitTransactionRequest GetTransactionSubmitRequest(FEncodeSubmissionRequest \_encodeSubmissionRequest, FAccountSignature \_transactionSignature);}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{175     \textcolor{keywordtype}{void} AddArgument(TArray<TSharedPtr<FJsonValue>>\& \_array, const FString \_field);}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{181     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{182     \textcolor{keywordtype}{void} GetCoinData(const FString \_content, FString\& Coin);}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{190     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{191     \textcolor{keywordtype}{void} GetCollectionData(const FString \_content, const FString \_collection\_name, FString\& TableHandle, FString\& TableItemRequest);}
+\DoxyCodeLine{192     }
+\DoxyCodeLine{201     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{202     \textcolor{keywordtype}{void} GetTokenData(const FString \_content, const FString \_creator, const FString \_collection\_name, const FString \_token\_name, FString\& TableHandle, FString\& TableItemRequest);}
+\DoxyCodeLine{203     }
+\DoxyCodeLine{213     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{214     \textcolor{keywordtype}{void} GetToken(const FString \_content, const FString \_property\_version, const FString \_creator, const FString \_collection\_name, const FString \_token\_name, FString\& TableHandle, FString\& TableItemRequest);}
+\DoxyCodeLine{215 \};}
 
 \end{DoxyCode}

@@ -111,6 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa2a6ea27a0572157259ac915f89c30b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#aa2a6ea27a0572157259ac915f89c30b5">GetAccountResource</a> (FString _address, FString _resource_type, FString _qledger_version, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
 <tr class="memdesc:aa2a6ea27a0572157259ac915f89c30b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an individual resource from a given account and at a specific ledger version.  <a href="class_u_aptos_client.html#aa2a6ea27a0572157259ac915f89c30b5">More...</a><br /></td></tr>
 <tr class="separator:aa2a6ea27a0572157259ac915f89c30b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9819724f66f1b6b8b5c00fa41ffec296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a9819724f66f1b6b8b5c00fa41ffec296">GetAccountResources</a> (FString _address, FString _qledger_version, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
+<tr class="memdesc:a9819724f66f1b6b8b5c00fa41ffec296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves all account resources for a given account and a specific ledger version.  <a href="class_u_aptos_client.html#a9819724f66f1b6b8b5c00fa41ffec296">More...</a><br /></td></tr>
+<tr class="separator:a9819724f66f1b6b8b5c00fa41ffec296"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e56506da6b9fa7d082a6899047fa399"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a1e56506da6b9fa7d082a6899047fa399">GetLedgerInfo</a> (const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
 <tr class="memdesc:a1e56506da6b9fa7d082a6899047fa399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the latest ledger information, including data such as chain ID, role type, ledger versions, epoch, etc.  <a href="class_u_aptos_client.html#a1e56506da6b9fa7d082a6899047fa399">More...</a><br /></td></tr>
 <tr class="separator:a1e56506da6b9fa7d082a6899047fa399"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +135,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a891b9b76a3dc0ef6121836e949747d1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a891b9b76a3dc0ef6121836e949747d1c">EstimateGasPrice</a> (const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
 <tr class="memdesc:a891b9b76a3dc0ef6121836e949747d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the gas estimation by taking the median of the last 100,000 transactions.  <a href="class_u_aptos_client.html#a891b9b76a3dc0ef6121836e949747d1c">More...</a><br /></td></tr>
 <tr class="separator:a891b9b76a3dc0ef6121836e949747d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34bd0641e260d815f061ddb9acbdce3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a34bd0641e260d815f061ddb9acbdce3f">GetEventsByCreationNumber</a> (FString _address, FString _creation_number, int _limit, FString _start, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
+<tr class="memdesc:a34bd0641e260d815f061ddb9acbdce3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a transaction events using the creation number.  <a href="class_u_aptos_client.html#a34bd0641e260d815f061ddb9acbdce3f">More...</a><br /></td></tr>
+<tr class="separator:a34bd0641e260d815f061ddb9acbdce3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05ed43a9d0aaa7a2eb6e068f17e77ed9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a05ed43a9d0aaa7a2eb6e068f17e77ed9">GetEventsByEventHandle</a> (FString _address, FString _event_handle, FString _field_name, int _limit, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
+<tr class="memdesc:a05ed43a9d0aaa7a2eb6e068f17e77ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns events emitted to the given account matching the specified event type.  <a href="class_u_aptos_client.html#a05ed43a9d0aaa7a2eb6e068f17e77ed9">More...</a><br /></td></tr>
+<tr class="separator:a05ed43a9d0aaa7a2eb6e068f17e77ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f7a67ab01c7b4a8a1a3b83f4b495a79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a9f7a67ab01c7b4a8a1a3b83f4b495a79">GetTableItem</a> (FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
+<tr class="memdesc:a9f7a67ab01c7b4a8a1a3b83f4b495a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a table item at a specific ledger version from the table identified by table handle.  <a href="class_u_aptos_client.html#a9f7a67ab01c7b4a8a1a3b83f4b495a79">More...</a><br /></td></tr>
+<tr class="separator:a9f7a67ab01c7b4a8a1a3b83f4b495a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93f7c4a73a30055c47e6c9ce84ca189d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a93f7c4a73a30055c47e6c9ce84ca189d">GetRawTableItem</a> (FString _table_handle, FString _ledger_version, FString _payload, const FAptosCallCompleteDynamicDelegate &amp;Result)</td></tr>
+<tr class="memdesc:a93f7c4a73a30055c47e6c9ce84ca189d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a table item at a specific ledger version from the table identified by table handle.  <a href="class_u_aptos_client.html#a93f7c4a73a30055c47e6c9ce84ca189d">More...</a><br /></td></tr>
+<tr class="separator:a93f7c4a73a30055c47e6c9ce84ca189d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af76713e46d03ca16af541729e198d283"><td class="memItemLeft" align="right" valign="top">FAptosAccount&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#af76713e46d03ca16af541729e198d283">GetAliceAccount</a> ()</td></tr>
 <tr class="memdesc:af76713e46d03ca16af541729e198d283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a test Aptos account for a person named Alice.  <a href="class_u_aptos_client.html#af76713e46d03ca16af541729e198d283">More...</a><br /></td></tr>
 <tr class="separator:af76713e46d03ca16af541729e198d283"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,6 +165,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac65fd113fb412f7db097a2d0c88bc027"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#ac65fd113fb412f7db097a2d0c88bc027">AddArgument</a> (TArray&lt; TSharedPtr&lt; FJsonValue &gt; &gt; &amp;_array, const FString _field)</td></tr>
 <tr class="memdesc:ac65fd113fb412f7db097a2d0c88bc027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a custom data type to an Array for json serialization.  <a href="class_u_aptos_client.html#ac65fd113fb412f7db097a2d0c88bc027">More...</a><br /></td></tr>
 <tr class="separator:ac65fd113fb412f7db097a2d0c88bc027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07831551a42b69acd95b1b8861069cd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a07831551a42b69acd95b1b8861069cd2">GetCoinData</a> (const FString _content, FString &amp;Coin)</td></tr>
+<tr class="memdesc:a07831551a42b69acd95b1b8861069cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the coin value for an account.  <a href="class_u_aptos_client.html#a07831551a42b69acd95b1b8861069cd2">More...</a><br /></td></tr>
+<tr class="separator:a07831551a42b69acd95b1b8861069cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62bb3ceccde4a75de269b024c91bfc8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a62bb3ceccde4a75de269b024c91bfc8a">GetCollectionData</a> (const FString _content, const FString _collection_name, FString &amp;TableHandle, FString &amp;TableItemRequest)</td></tr>
+<tr class="memdesc:a62bb3ceccde4a75de269b024c91bfc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries collection data.  <a href="class_u_aptos_client.html#a62bb3ceccde4a75de269b024c91bfc8a">More...</a><br /></td></tr>
+<tr class="separator:a62bb3ceccde4a75de269b024c91bfc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15f7ea2f2b833c685520e4673f9db92c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a15f7ea2f2b833c685520e4673f9db92c">GetTokenData</a> (const FString _content, const FString _creator, const FString _collection_name, const FString _token_name, FString &amp;TableHandle, FString &amp;TableItemRequest)</td></tr>
+<tr class="memdesc:a15f7ea2f2b833c685520e4673f9db92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries token data from collection.  <a href="class_u_aptos_client.html#a15f7ea2f2b833c685520e4673f9db92c">More...</a><br /></td></tr>
+<tr class="separator:a15f7ea2f2b833c685520e4673f9db92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42bbbec2ad4b3fa4f896c66d60b9604d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client.html#a42bbbec2ad4b3fa4f896c66d60b9604d">GetToken</a> (const FString _content, const FString _property_version, const FString _creator, const FString _collection_name, const FString _token_name, FString &amp;TableHandle, FString &amp;TableItemRequest)</td></tr>
+<tr class="memdesc:a42bbbec2ad4b3fa4f896c66d60b9604d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries token balance for a token account.  <a href="class_u_aptos_client.html#a42bbbec2ad4b3fa4f896c66d60b9604d">More...</a><br /></td></tr>
+<tr class="separator:a42bbbec2ad4b3fa4f896c66d60b9604d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_u_aptos_client_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_u_aptos_client_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_u_aptos_client_base.html">UAptosClientBase</a></td></tr>
 <tr class="memitem:a660f5fe79697a3bd522602fc8a7ed44d inherit pub_methods_class_u_aptos_client_base"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_aptos_client_base.html#a660f5fe79697a3bd522602fc8a7ed44d">SendRequest</a> (FString _url, FString _verb, FString _payload, TFunctionRef&lt; void(const TArray&lt; uint8 &gt;, const FString, TSharedPtr&lt; FJsonObject &gt;)&gt; _function, bool _backgroundTask)</td></tr>
 <tr class="memdesc:a660f5fe79697a3bd522602fc8a7ed44d inherit pub_methods_class_u_aptos_client_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">SendRequest function is used to send GET or POST request and the response will be received as a JsonObject.  <a href="class_u_aptos_client_base.html#a660f5fe79697a3bd522602fc8a7ed44d">More...</a><br /></td></tr>
@@ -249,6 +276,64 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">_address</td><td>The address for which the auth key and the sequence number to be received. </td></tr>
     <tr><td class="paramname">_resource_type</td><td>Name of the struct to retrieve. </td></tr>
     <tr><td class="paramname">_ledger_version</td><td>A version for the ledger or the latest ledger version is retrieved if no version is specified. </td></tr>
+    <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9819724f66f1b6b8b5c00fa41ffec296" name="a9819724f66f1b6b8b5c00fa41ffec296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9819724f66f1b6b8b5c00fa41ffec296">&#9670;&nbsp;</a></span>GetAccountResources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetAccountResources </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_qledger_version</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAptosCallCompleteDynamicDelegate &amp;&#160;</td>
+          <td class="paramname"><em>Result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves all account resources for a given account and a specific ledger version. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_address</td><td>The address for which the auth key and the sequence number to be received. </td></tr>
+    <tr><td class="paramname">_ledger_version</td><td>A version for the ledger or the latest ledger version is retrieved if no version is specified. </td></tr>
+    <tr><td class="paramname">_limit</td><td>Max number of account resources to retrieve. </td></tr>
+    <tr><td class="paramname">_start</td><td>Cursor specifying where to start for pagination. </td></tr>
     <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
   </table>
   </dd>
@@ -515,6 +600,224 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a34bd0641e260d815f061ddb9acbdce3f" name="a34bd0641e260d815f061ddb9acbdce3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34bd0641e260d815f061ddb9acbdce3f">&#9670;&nbsp;</a></span>GetEventsByCreationNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetEventsByCreationNumber </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_creation_number</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAptosCallCompleteDynamicDelegate &amp;&#160;</td>
+          <td class="paramname"><em>Result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a transaction events using the creation number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_address</td><td>The account's address for which to retrieve the events. </td></tr>
+    <tr><td class="paramname">_creation_number</td><td>Creation number corresponding to the event stream originating from the given account. </td></tr>
+    <tr><td class="paramname">_limit</td><td>Max number of events to retrieve. </td></tr>
+    <tr><td class="paramname">_start</td><td>Starting sequence number of events. </td></tr>
+    <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05ed43a9d0aaa7a2eb6e068f17e77ed9" name="a05ed43a9d0aaa7a2eb6e068f17e77ed9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05ed43a9d0aaa7a2eb6e068f17e77ed9">&#9670;&nbsp;</a></span>GetEventsByEventHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetEventsByEventHandle </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_event_handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_field_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_limit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAptosCallCompleteDynamicDelegate &amp;&#160;</td>
+          <td class="paramname"><em>Result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns events emitted to the given account matching the specified event type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_address</td><td>The account's address for which to retrieve the events. </td></tr>
+    <tr><td class="paramname">_event_handle</td><td>Name of struct to lookup event handle. </td></tr>
+    <tr><td class="paramname">_field_name</td><td>Name of field to lookup event handle. </td></tr>
+    <tr><td class="paramname">_limit</td><td>Max number of events to retrieve. </td></tr>
+    <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9f7a67ab01c7b4a8a1a3b83f4b495a79" name="a9f7a67ab01c7b4a8a1a3b83f4b495a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7a67ab01c7b4a8a1a3b83f4b495a79">&#9670;&nbsp;</a></span>GetTableItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetTableItem </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_table_handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_ledger_version</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_payload</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAptosCallCompleteDynamicDelegate &amp;&#160;</td>
+          <td class="paramname"><em>Result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a table item at a specific ledger version from the table identified by table handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_table_handle</td><td>Table handle hex encoded 32-byte string. </td></tr>
+    <tr><td class="paramname">_ledger_version</td><td>Ledger version to get state of account. </td></tr>
+    <tr><td class="paramname">_payload</td><td>The table item request containing the key_type, value_type and key. </td></tr>
+    <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a93f7c4a73a30055c47e6c9ce84ca189d" name="a93f7c4a73a30055c47e6c9ce84ca189d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93f7c4a73a30055c47e6c9ce84ca189d">&#9670;&nbsp;</a></span>GetRawTableItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetRawTableItem </td>
+          <td>(</td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_table_handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_ledger_version</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString&#160;</td>
+          <td class="paramname"><em>_payload</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAptosCallCompleteDynamicDelegate &amp;&#160;</td>
+          <td class="paramname"><em>Result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a table item at a specific ledger version from the table identified by table handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_table_handle</td><td>Table handle hex encoded 32-byte string. </td></tr>
+    <tr><td class="paramname">_ledger_version</td><td>Ledger version to get state of account. </td></tr>
+    <tr><td class="paramname">_payload</td><td>The table item request containing only key. </td></tr>
+    <tr><td class="paramname">Result</td><td>A callback to be executed when the result is successful. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="af76713e46d03ca16af541729e198d283" name="af76713e46d03ca16af541729e198d283"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af76713e46d03ca16af541729e198d283">&#9670;&nbsp;</a></span>GetAliceAccount()</h2>
 
@@ -755,6 +1058,231 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">_array</td><td>The source array. </td></tr>
     <tr><td class="paramname">_field</td><td>The custom data type to be added to the source array. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a07831551a42b69acd95b1b8861069cd2" name="a07831551a42b69acd95b1b8861069cd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07831551a42b69acd95b1b8861069cd2">&#9670;&nbsp;</a></span>GetCoinData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetCoinData </td>
+          <td>(</td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>Coin</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the coin value for an account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_content</td><td>The response received from GetAccountResource (0x1::coin::CoinStore&lt;0x1::aptos_coin::AptosCoin&gt;). </td></tr>
+    <tr><td class="paramname">Coin</td><td>The value of the coin. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a62bb3ceccde4a75de269b024c91bfc8a" name="a62bb3ceccde4a75de269b024c91bfc8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62bb3ceccde4a75de269b024c91bfc8a">&#9670;&nbsp;</a></span>GetCollectionData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetCollectionData </td>
+          <td>(</td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_collection_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableItemRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queries collection data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_content</td><td>The response received from GetAccountResource (0x1::token::Collections). </td></tr>
+    <tr><td class="paramname">_collection_name</td><td>The name of the collection. </td></tr>
+    <tr><td class="paramname">TableHandle</td><td>The table handle. </td></tr>
+    <tr><td class="paramname">TableItemRequest</td><td>The table item request. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a15f7ea2f2b833c685520e4673f9db92c" name="a15f7ea2f2b833c685520e4673f9db92c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15f7ea2f2b833c685520e4673f9db92c">&#9670;&nbsp;</a></span>GetTokenData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetTokenData </td>
+          <td>(</td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_creator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_collection_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_token_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableItemRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queries token data from collection. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_content</td><td>The response received from GetAccountResource (0x1::token::Collections). </td></tr>
+    <tr><td class="paramname">_creator</td><td>The address who created the token. </td></tr>
+    <tr><td class="paramname">_collection_name</td><td>The name of the collection. </td></tr>
+    <tr><td class="paramname">_token_name</td><td>The name of the token. </td></tr>
+    <tr><td class="paramname">TableHandle</td><td>The table handle. </td></tr>
+    <tr><td class="paramname">TableItemRequest</td><td>The table item request. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a42bbbec2ad4b3fa4f896c66d60b9604d" name="a42bbbec2ad4b3fa4f896c66d60b9604d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42bbbec2ad4b3fa4f896c66d60b9604d">&#9670;&nbsp;</a></span>GetToken()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAptosClient::GetToken </td>
+          <td>(</td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_content</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_property_version</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_creator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_collection_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString&#160;</td>
+          <td class="paramname"><em>_token_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableHandle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>TableItemRequest</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queries token balance for a token account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_content</td><td>The response received from GetAccountResource (0x1::token::TokenStore). </td></tr>
+    <tr><td class="paramname">_property_version</td><td>Property version. </td></tr>
+    <tr><td class="paramname">_creator</td><td>The address who created the token. </td></tr>
+    <tr><td class="paramname">_collection_name</td><td>The name of the collection. </td></tr>
+    <tr><td class="paramname">_token_name</td><td>The name of the token. </td></tr>
+    <tr><td class="paramname">TableHandle</td><td>The table handle. </td></tr>
+    <tr><td class="paramname">TableItemRequest</td><td>The table item request. </td></tr>
   </table>
   </dd>
 </dl>
