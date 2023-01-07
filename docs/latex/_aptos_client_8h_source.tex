@@ -6,85 +6,40 @@
 \DoxyCodeLine{2 }
 \DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}AptosClientBase.h"{}}}
 \DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}AptosSchemas.h"{}}}
-\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}AptosClient.generated.h"{}}}
-\DoxyCodeLine{6 }
-\DoxyCodeLine{8 UCLASS(Blueprintable, BlueprintType)}
-\DoxyCodeLine{9 class APTOSSDK\_API \mbox{\hyperlink{class_u_aptos_client}{UAptosClient}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
-\DoxyCodeLine{10 \{}
-\DoxyCodeLine{11     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}../Private/Services/AccountsService.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}../Private/Services/BlocksService.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}../Private/Services/EventsService.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}../Private/Services/GeneralService.h"{}}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include "{}../Private/Services/TablesService.h"{}}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../Private/Services/TransactionsService.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}AptosClient.generated.h"{}}}
 \DoxyCodeLine{12 }
-\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define DOXYGEN\_SHOULD\_SKIP\_THIS}}
 \DoxyCodeLine{14 }
-\DoxyCodeLine{20     UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
-\DoxyCodeLine{21     void GetAccount(FString \_address, FString \_qledger\_version, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{16 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{17 class APTOSSDK\_API \mbox{\hyperlink{class_u_aptos_client}{UAptosClient}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
 \DoxyCodeLine{22 }
-\DoxyCodeLine{29     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{30     \textcolor{keywordtype}{void} GetAccountResource(FString \_address, FString \_resource\_type, FString \_qledger\_version, const FAptosCallCompleteDynamicDelegate\& Result);}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifndef DOXYGEN\_SHOULD\_SKIP\_THIS}}
+\DoxyCodeLine{24     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_accounts_service}{UAccountsService}}*     accountsService     = NULL;}
+\DoxyCodeLine{25     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_blocks_service}{UBlocksService}}*         blocksService       = NULL;}
+\DoxyCodeLine{26     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_events_service}{UEventsService}}*         eventsService       = NULL;}
+\DoxyCodeLine{27     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_general_service}{UGeneralService}}*   generalService      = NULL;}
+\DoxyCodeLine{28     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_tables_service}{UTablesService}}*         tablesService       = NULL;}
+\DoxyCodeLine{29     UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = \textcolor{stringliteral}{"{}AptosSDK"{}})\mbox{\hyperlink{class_u_transactions_service}{UTransactionsService}}* transactionsService = NULL;}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* DOXYGEN\_SHOULD\_SKIP\_THIS */}\textcolor{preprocessor}{}}
 \DoxyCodeLine{31 }
-\DoxyCodeLine{39     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{40     \textcolor{keywordtype}{void} GetAccountResources(FString \_address, FString \_qledger\_version, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{41 }
-\DoxyCodeLine{45     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{46     \textcolor{keywordtype}{void} GetLedgerInfo(const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{47     }
-\DoxyCodeLine{53     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{54     \textcolor{keywordtype}{void} GetTransactions(\textcolor{keywordtype}{int} \_qlimit, FString \_qstart, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{55 }
-\DoxyCodeLine{60     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{61     \textcolor{keywordtype}{void} SubmitTransaction(FSubmitTransactionRequest \_submitTransactionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{62 }
-\DoxyCodeLine{67     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{68     \textcolor{keywordtype}{void} GetTransactionByHash(FString \_txn\_hash, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{69 }
-\DoxyCodeLine{76     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{77     \textcolor{keywordtype}{void} GetAccountTransactions(FString \_address, \textcolor{keywordtype}{int} \_plimit, FString \_pstart, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{78 }
-\DoxyCodeLine{83     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{84     \textcolor{keywordtype}{void} EncodeSubmission(FEncodeSubmissionRequest \_encodeSubmissionRequest, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{89     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{90     \textcolor{keywordtype}{void} EstimateGasPrice(const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{99     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{100     \textcolor{keywordtype}{void} GetEventsByCreationNumber(FString \_address, FString \_creation\_number, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{101 }
-\DoxyCodeLine{109     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{110     \textcolor{keywordtype}{void} GetEventsByEventHandle(FString \_address, FString \_event\_handle, FString \_field\_name, \textcolor{keywordtype}{int} \_limit, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{111 }
-\DoxyCodeLine{118     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{119     \textcolor{keywordtype}{void} GetTableItem(FString \_table\_handle, FString \_ledger\_version, FString \_payload, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{120 }
-\DoxyCodeLine{127     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{128     \textcolor{keywordtype}{void} GetRawTableItem(FString \_table\_handle, FString \_ledger\_version, FString \_payload, const FAptosCallCompleteDynamicDelegate\& Result);}
-\DoxyCodeLine{129 }
-\DoxyCodeLine{133     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{134     FAptosAccount GetAliceAccount();}
-\DoxyCodeLine{135     }
-\DoxyCodeLine{139     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{140     FAptosAccount GetBobAccount();}
-\DoxyCodeLine{141 }
-\DoxyCodeLine{154     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{155     FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString \_sender, FString \_sequence\_number, FString \_max\_gas\_amount, FString \_gas\_estimate, FString \_expireInSecs, FString \_type, FString \_function, TArray<FString> \_type\_arguments, TArray<FArgument> \_arguments, TArray<FString> \_secondary\_signers);}
-\DoxyCodeLine{156 }
-\DoxyCodeLine{161     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{162     FAccountSignature GetTransactionSignature(FAptosAccount \_sender, FString \_bcsMessage);}
-\DoxyCodeLine{163 }
-\DoxyCodeLine{168     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{169     FSubmitTransactionRequest GetTransactionSubmitRequest(FEncodeSubmissionRequest \_encodeSubmissionRequest, FAccountSignature \_transactionSignature);}
-\DoxyCodeLine{170 }
-\DoxyCodeLine{175     \textcolor{keywordtype}{void} AddArgument(TArray<TSharedPtr<FJsonValue>>\& \_array, const FString \_field);}
-\DoxyCodeLine{176 }
-\DoxyCodeLine{181     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{182     \textcolor{keywordtype}{void} GetCoinData(const FString \_content, FString\& Coin);}
-\DoxyCodeLine{183 }
-\DoxyCodeLine{190     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{191     \textcolor{keywordtype}{void} GetCollectionData(const FString \_content, const FString \_collection\_name, FString\& TableHandle, FString\& TableItemRequest);}
-\DoxyCodeLine{192     }
-\DoxyCodeLine{201     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{202     \textcolor{keywordtype}{void} GetTokenData(const FString \_content, const FString \_creator, const FString \_collection\_name, const FString \_token\_name, FString\& TableHandle, FString\& TableItemRequest);}
-\DoxyCodeLine{203     }
-\DoxyCodeLine{213     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
-\DoxyCodeLine{214     \textcolor{keywordtype}{void} GetToken(const FString \_content, const FString \_property\_version, const FString \_creator, const FString \_collection\_name, const FString \_token\_name, FString\& TableHandle, FString\& TableItemRequest);}
-\DoxyCodeLine{215 \};}
+\DoxyCodeLine{35     UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
+\DoxyCodeLine{36     void Initialize();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{41     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{42     FAptosAccount GetAliceAccount();}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{47     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{48     FAptosAccount GetBobAccount();}
+\DoxyCodeLine{49 \};}
 
 \end{DoxyCode}

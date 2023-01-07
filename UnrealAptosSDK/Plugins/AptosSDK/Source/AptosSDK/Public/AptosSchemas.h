@@ -58,7 +58,7 @@ struct FAccountData
 };
 
 USTRUCT(BlueprintType)
-struct FAccountSignature
+struct FTransactionSignature
 {
 	GENERATED_BODY()
 
@@ -175,7 +175,7 @@ struct FSubmitTransactionRequest
 	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FString gas_unit_price;			 // string<uint64>
 	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FString expiration_timestamp_secs; // string<uint64>
 	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FTransactionPayload payload;	     // object
-	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FAccountSignature signature;	     // object
+	UPROPERTY(BlueprintReadWrite, Category = "APTOS SDK") FTransactionSignature signature;	     // object
 
 	TSharedPtr<FJsonObject> ToJsonObject()
 	{

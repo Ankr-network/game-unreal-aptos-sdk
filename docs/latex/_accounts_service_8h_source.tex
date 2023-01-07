@@ -1,0 +1,34 @@
+\hypertarget{_accounts_service_8h_source}{}\doxysection{Accounts\+Service.\+h}
+\label{_accounts_service_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/AccountsService.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/AccountsService.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}AptosClientBase.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}AptosSchemas.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}AccountsService.generated.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{9 class APTOSSDK\_API \mbox{\hyperlink{class_u_accounts_service}{UAccountsService}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{20     UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
+\DoxyCodeLine{21     void GetAccount(FString \_address, FString \_ledger\_version, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{30     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{31     \textcolor{keywordtype}{void} GetAccountResources(FString \_address, FString \_ledger\_version, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{40     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{41     \textcolor{keywordtype}{void} GetAccountModules(FString \_address, FString \_ledger\_version, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{49     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} GetAccountResource(FString \_address, FString \_resource\_type, FString \_ledger\_version, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{58     UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} GetAccountModule(FString \_address, FString \_module\_name, FString \_ledger\_version, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{60 \};}
+
+\end{DoxyCode}

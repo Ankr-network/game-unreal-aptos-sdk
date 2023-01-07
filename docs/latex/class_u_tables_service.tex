@@ -1,0 +1,169 @@
+\hypertarget{class_u_tables_service}{}\doxysection{UTables\+Service Class Reference}
+\label{class_u_tables_service}\index{UTablesService@{UTablesService}}
+
+
+Tables\+Service class is used to get the items from tables.  
+
+
+
+
+{\ttfamily \#include $<$Tables\+Service.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_u_tables_service_aa779fd41c1e5c654c38610ce4bec63a0}{Get\+Table\+Item}} (FString \+\_\+table\+\_\+handle, FString \+\_\+ledger\+\_\+version, FString \+\_\+payload, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Gets a table item at a specific ledger version from the table identified by table handle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_tables_service_ac95cb7a858c9af53afadc3d4b65ceb7f}{Get\+Raw\+Table\+Item}} (FString \+\_\+table\+\_\+handle, FString \+\_\+ledger\+\_\+version, FString \+\_\+payload, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Gets a raw table item at a specific ledger version from the table identified by table handle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_tables_service_ac32fbfb3553b2dd7bff02ac0b755751d}{Get\+Coin\+Data}} (const FString \+\_\+content, FString \&Coin)
+\begin{DoxyCompactList}\small\item\em Gets the coin value for an account. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_tables_service_a2fa48b2c5129eb9a178b6ee1caa1fcb7}{Get\+Collection\+Data}} (const FString \+\_\+content, const FString \+\_\+collection\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries collection data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_tables_service_a9260ce5802700138588de5d4f020eb4b}{Get\+Token\+Data}} (const FString \+\_\+content, const FString \+\_\+creator, const FString \+\_\+collection\+\_\+name, const FString \+\_\+token\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries token data from collection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_tables_service_a85a744599f34069777186186dc32b47e}{Get\+Token}} (const FString \+\_\+content, const FString \+\_\+property\+\_\+version, const FString \+\_\+creator, const FString \+\_\+collection\+\_\+name, const FString \+\_\+token\+\_\+name, FString \&Table\+Handle, FString \&Table\+Item\+Request)
+\begin{DoxyCompactList}\small\item\em Queries token balance for a token account. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tables\+Service class is used to get the items from tables. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_u_tables_service_aa779fd41c1e5c654c38610ce4bec63a0}\label{class_u_tables_service_aa779fd41c1e5c654c38610ce4bec63a0}} 
+\index{UTablesService@{UTablesService}!GetTableItem@{GetTableItem}}
+\index{GetTableItem@{GetTableItem}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetTableItem()}{GetTableItem()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Table\+Item (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+table\+\_\+handle,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{FString}]{\+\_\+payload,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Gets a table item at a specific ledger version from the table identified by table handle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+table\+\_\+handle} & Table handle hex encoded 32-\/byte string. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & Ledger version to get state of account. \\
+\hline
+{\em \+\_\+payload} & The table item request containing the key\+\_\+type, value\+\_\+type and key. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_tables_service_ac95cb7a858c9af53afadc3d4b65ceb7f}\label{class_u_tables_service_ac95cb7a858c9af53afadc3d4b65ceb7f}} 
+\index{UTablesService@{UTablesService}!GetRawTableItem@{GetRawTableItem}}
+\index{GetRawTableItem@{GetRawTableItem}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetRawTableItem()}{GetRawTableItem()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Raw\+Table\+Item (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+table\+\_\+handle,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{FString}]{\+\_\+payload,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Gets a raw table item at a specific ledger version from the table identified by table handle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+table\+\_\+handle} & Table handle hex encoded 32-\/byte string. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & Ledger version to get state of account. \\
+\hline
+{\em \+\_\+payload} & The table item request containing only key. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_tables_service_ac32fbfb3553b2dd7bff02ac0b755751d}\label{class_u_tables_service_ac32fbfb3553b2dd7bff02ac0b755751d}} 
+\index{UTablesService@{UTablesService}!GetCoinData@{GetCoinData}}
+\index{GetCoinData@{GetCoinData}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetCoinData()}{GetCoinData()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Coin\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{FString \&}]{Coin }\end{DoxyParamCaption})}
+
+
+
+Gets the coin value for an account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::coin\+::\+Coin\+Store$<$0x1\+::aptos\+\_\+coin\+::\+Aptos\+Coin$>$). \\
+\hline
+{\em Coin} & The value output of the coin. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_tables_service_a2fa48b2c5129eb9a178b6ee1caa1fcb7}\label{class_u_tables_service_a2fa48b2c5129eb9a178b6ee1caa1fcb7}} 
+\index{UTablesService@{UTablesService}!GetCollectionData@{GetCollectionData}}
+\index{GetCollectionData@{GetCollectionData}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetCollectionData()}{GetCollectionData()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Collection\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries collection data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Collections). \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em Table\+Handle} & The table handle output. \\
+\hline
+{\em Table\+Item\+Request} & The table item request output. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_tables_service_a9260ce5802700138588de5d4f020eb4b}\label{class_u_tables_service_a9260ce5802700138588de5d4f020eb4b}} 
+\index{UTablesService@{UTablesService}!GetTokenData@{GetTokenData}}
+\index{GetTokenData@{GetTokenData}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetTokenData()}{GetTokenData()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Token\+Data (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+creator,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{const FString}]{\+\_\+token\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries token data from collection. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Collections). \\
+\hline
+{\em \+\_\+creator} & The address who created the token. \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em \+\_\+token\+\_\+name} & The name of the token. \\
+\hline
+{\em Table\+Handle} & The table handle output. \\
+\hline
+{\em Table\+Item\+Request} & The table item request output. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_tables_service_a85a744599f34069777186186dc32b47e}\label{class_u_tables_service_a85a744599f34069777186186dc32b47e}} 
+\index{UTablesService@{UTablesService}!GetToken@{GetToken}}
+\index{GetToken@{GetToken}!UTablesService@{UTablesService}}
+\doxysubsubsection{\texorpdfstring{GetToken()}{GetToken()}}
+{\footnotesize\ttfamily void UTables\+Service\+::\+Get\+Token (\begin{DoxyParamCaption}\item[{const FString}]{\+\_\+content,  }\item[{const FString}]{\+\_\+property\+\_\+version,  }\item[{const FString}]{\+\_\+creator,  }\item[{const FString}]{\+\_\+collection\+\_\+name,  }\item[{const FString}]{\+\_\+token\+\_\+name,  }\item[{FString \&}]{Table\+Handle,  }\item[{FString \&}]{Table\+Item\+Request }\end{DoxyParamCaption})}
+
+
+
+Queries token balance for a token account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+content} & The response received from Get\+Account\+Resource (0x1\+::token\+::\+Token\+Store). \\
+\hline
+{\em \+\_\+property\+\_\+version} & Property version. \\
+\hline
+{\em \+\_\+creator} & The address who created the token. \\
+\hline
+{\em \+\_\+collection\+\_\+name} & The name of the collection. \\
+\hline
+{\em \+\_\+token\+\_\+name} & The name of the token. \\
+\hline
+{\em Table\+Handle} & The table handle output. \\
+\hline
+{\em Table\+Item\+Request} & The table item request output. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unreal\+Aptos\+SDK/\+Plugins/\+Aptos\+SDK/\+Source/\+Aptos\+SDK/\+Private/\+Services/Tables\+Service.\+h\end{DoxyCompactItemize}

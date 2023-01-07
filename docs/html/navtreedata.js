@@ -43,7 +43,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_aptos_client_8h_source.html"
+"_accounts_service_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

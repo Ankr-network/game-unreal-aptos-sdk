@@ -1,0 +1,51 @@
+\hypertarget{_transactions_service_8h_source}{}\doxysection{Transactions\+Service.\+h}
+\label{_transactions_service_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/TransactionsService.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/TransactionsService.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}AptosClientBase.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}AptosSchemas.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}TransactionsService.generated.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{9 class APTOSSDK\_API \mbox{\hyperlink{class_u_transactions_service}{UTransactionsService}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{20         UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
+\DoxyCodeLine{21         void GetTransactions(\textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{27         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{28         \textcolor{keywordtype}{void} SubmitTransaction(FSubmitTransactionRequest \_submitTransactionRequest, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{34         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{35         \textcolor{keywordtype}{void} GetTransactionByHash(FString \_txn\_hash, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{41         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{42         \textcolor{keywordtype}{void} GetTransactionByVersion(FString \_txn\_version, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{50         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{51         \textcolor{keywordtype}{void} GetAccountTransactions(FString \_address, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{57         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{58         \textcolor{keywordtype}{void} EncodeSubmission(FEncodeSubmissionRequest \_encodeSubmissionRequest, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{63         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{64         \textcolor{keywordtype}{void} EstimateGasPrice(const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{78         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{79         FEncodeSubmissionRequest GetEncodeSubmissionRequest(FString \_sender, FString \_sequence\_number, FString \_max\_gas\_amount, FString \_gas\_estimate, FString \_expireInSecs, FString \_type, FString \_function, TArray<FString> \_type\_arguments, TArray<FArgument> \_arguments, TArray<FString> \_secondary\_signers);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{85         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{86         FTransactionSignature SignTransaction(FAptosAccount \_sender, FString \_bcsMessage);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{92         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{93         FSubmitTransactionRequest GetTransactionSubmitRequest(FEncodeSubmissionRequest \_encodeSubmissionRequest, FTransactionSignature \_transactionSignature);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{99         \textcolor{keywordtype}{void} AddArgument(TArray<TSharedPtr<FJsonValue>>\& \_array, const FString \_field);}
+\DoxyCodeLine{100 \};}
+
+\end{DoxyCode}

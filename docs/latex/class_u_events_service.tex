@@ -1,0 +1,77 @@
+\hypertarget{class_u_events_service}{}\doxysection{UEvents\+Service Class Reference}
+\label{class_u_events_service}\index{UEventsService@{UEventsService}}
+
+
+Events\+Service class is used to get the transaction events.  
+
+
+
+
+{\ttfamily \#include $<$Events\+Service.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_u_events_service_a4b7e5a126c7776dfeaa7e37202b8a113}{Get\+Events\+By\+Creation\+Number}} (FString \+\_\+address, FString \+\_\+creation\+\_\+number, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Returns the transaction events using the creation number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_events_service_ae98c9b2f3f6d0c4c06995fecc5a94bd6}{Get\+Events\+By\+Event\+Handle}} (FString \+\_\+address, FString \+\_\+event\+\_\+handle, FString \+\_\+field\+\_\+name, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Returns events emitted to the given account matching the specified event type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Events\+Service class is used to get the transaction events. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_u_events_service_a4b7e5a126c7776dfeaa7e37202b8a113}\label{class_u_events_service_a4b7e5a126c7776dfeaa7e37202b8a113}} 
+\index{UEventsService@{UEventsService}!GetEventsByCreationNumber@{GetEventsByCreationNumber}}
+\index{GetEventsByCreationNumber@{GetEventsByCreationNumber}!UEventsService@{UEventsService}}
+\doxysubsubsection{\texorpdfstring{GetEventsByCreationNumber()}{GetEventsByCreationNumber()}}
+{\footnotesize\ttfamily void UEvents\+Service\+::\+Get\+Events\+By\+Creation\+Number (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+creation\+\_\+number,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Returns the transaction events using the creation number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The account\textquotesingle{}s address for which to retrieve the events. \\
+\hline
+{\em \+\_\+creation\+\_\+number} & Creation number corresponding to the event stream originating from the given account. \\
+\hline
+{\em \+\_\+limit} & Max number of events to retrieve. \\
+\hline
+{\em \+\_\+start} & Starting sequence number of events. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_events_service_ae98c9b2f3f6d0c4c06995fecc5a94bd6}\label{class_u_events_service_ae98c9b2f3f6d0c4c06995fecc5a94bd6}} 
+\index{UEventsService@{UEventsService}!GetEventsByEventHandle@{GetEventsByEventHandle}}
+\index{GetEventsByEventHandle@{GetEventsByEventHandle}!UEventsService@{UEventsService}}
+\doxysubsubsection{\texorpdfstring{GetEventsByEventHandle()}{GetEventsByEventHandle()}}
+{\footnotesize\ttfamily void UEvents\+Service\+::\+Get\+Events\+By\+Event\+Handle (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+event\+\_\+handle,  }\item[{FString}]{\+\_\+field\+\_\+name,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Returns events emitted to the given account matching the specified event type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The account\textquotesingle{}s address for which to retrieve the events. \\
+\hline
+{\em \+\_\+event\+\_\+handle} & Name of struct to lookup event handle. \\
+\hline
+{\em \+\_\+field\+\_\+name} & Name of field to lookup event handle. \\
+\hline
+{\em \+\_\+limit} & Max number of events to retrieve. \\
+\hline
+{\em \+\_\+start} & Starting sequence number of events. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unreal\+Aptos\+SDK/\+Plugins/\+Aptos\+SDK/\+Source/\+Aptos\+SDK/\+Private/\+Services/Events\+Service.\+h\end{DoxyCompactItemize}

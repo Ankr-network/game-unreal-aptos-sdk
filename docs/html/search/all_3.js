@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['overview_0',['Overview',['../index.html',1,'']]]
+  ['initialize_0',['Initialize',['../class_u_aptos_client.html#a24367b69b1eaa059e965da4501cda690',1,'UAptosClient']]]
 ];

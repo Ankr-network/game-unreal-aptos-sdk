@@ -1,0 +1,142 @@
+\hypertarget{class_u_accounts_service}{}\doxysection{UAccounts\+Service Class Reference}
+\label{class_u_accounts_service}\index{UAccountsService@{UAccountsService}}
+
+
+Accounts\+Service class is used to get information about Aptos accounts, resources and modules.  
+
+
+
+
+{\ttfamily \#include $<$Accounts\+Service.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_u_accounts_service_aeb7fdb6992eea618c0f657067a26291d}{Get\+Account}} (FString \+\_\+address, FString \+\_\+ledger\+\_\+version, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Gets the account data containing an authentication key and a sequence number. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_accounts_service_a3654396262b55b8372bec79a26a70a1a}{Get\+Account\+Resources}} (FString \+\_\+address, FString \+\_\+ledger\+\_\+version, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Retrieves all account resources for a given account at a specific ledger version. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_accounts_service_a536eb6a6af5d70f783b54dae3ad1d82d}{Get\+Account\+Modules}} (FString \+\_\+address, FString \+\_\+ledger\+\_\+version, int \+\_\+limit, FString \+\_\+start, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Retrieves all account modules\textquotesingle{} bytecode for a given account at a specific ledger version. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_accounts_service_a7ca972a003ba846b1d1b7d9055474786}{Get\+Account\+Resource}} (FString \+\_\+address, FString \+\_\+resource\+\_\+type, FString \+\_\+ledger\+\_\+version, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Gets an individual resource from a given account at a specific ledger version. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_u_accounts_service_a48d82b93783ed2128e3978f799fa211d}{Get\+Account\+Module}} (FString \+\_\+address, FString \+\_\+module\+\_\+name, FString \+\_\+ledger\+\_\+version, const FAptos\+Call\+Complete\+Dynamic\+Delegate \&\+\_\+callback)
+\begin{DoxyCompactList}\small\item\em Retrieves an individual module from a given account at a specific ledger version. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Accounts\+Service class is used to get information about Aptos accounts, resources and modules. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_u_accounts_service_aeb7fdb6992eea618c0f657067a26291d}\label{class_u_accounts_service_aeb7fdb6992eea618c0f657067a26291d}} 
+\index{UAccountsService@{UAccountsService}!GetAccount@{GetAccount}}
+\index{GetAccount@{GetAccount}!UAccountsService@{UAccountsService}}
+\doxysubsubsection{\texorpdfstring{GetAccount()}{GetAccount()}}
+{\footnotesize\ttfamily void UAccounts\+Service\+::\+Get\+Account (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Gets the account data containing an authentication key and a sequence number. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the account data to be received. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_accounts_service_a3654396262b55b8372bec79a26a70a1a}\label{class_u_accounts_service_a3654396262b55b8372bec79a26a70a1a}} 
+\index{UAccountsService@{UAccountsService}!GetAccountResources@{GetAccountResources}}
+\index{GetAccountResources@{GetAccountResources}!UAccountsService@{UAccountsService}}
+\doxysubsubsection{\texorpdfstring{GetAccountResources()}{GetAccountResources()}}
+{\footnotesize\ttfamily void UAccounts\+Service\+::\+Get\+Account\+Resources (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Retrieves all account resources for a given account at a specific ledger version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the account data to be received. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+limit} & Max number of account resources to retrieve. \\
+\hline
+{\em \+\_\+start} & Cursor specifying where to start for pagination. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_accounts_service_a536eb6a6af5d70f783b54dae3ad1d82d}\label{class_u_accounts_service_a536eb6a6af5d70f783b54dae3ad1d82d}} 
+\index{UAccountsService@{UAccountsService}!GetAccountModules@{GetAccountModules}}
+\index{GetAccountModules@{GetAccountModules}!UAccountsService@{UAccountsService}}
+\doxysubsubsection{\texorpdfstring{GetAccountModules()}{GetAccountModules()}}
+{\footnotesize\ttfamily void UAccounts\+Service\+::\+Get\+Account\+Modules (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{int}]{\+\_\+limit,  }\item[{FString}]{\+\_\+start,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Retrieves all account modules\textquotesingle{} bytecode for a given account at a specific ledger version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the account data to be received. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+limit} & Max number of account modules to retrieve. \\
+\hline
+{\em \+\_\+start} & Cursor specifying where to start for pagination. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_accounts_service_a7ca972a003ba846b1d1b7d9055474786}\label{class_u_accounts_service_a7ca972a003ba846b1d1b7d9055474786}} 
+\index{UAccountsService@{UAccountsService}!GetAccountResource@{GetAccountResource}}
+\index{GetAccountResource@{GetAccountResource}!UAccountsService@{UAccountsService}}
+\doxysubsubsection{\texorpdfstring{GetAccountResource()}{GetAccountResource()}}
+{\footnotesize\ttfamily void UAccounts\+Service\+::\+Get\+Account\+Resource (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+resource\+\_\+type,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Gets an individual resource from a given account at a specific ledger version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the account data to be received. \\
+\hline
+{\em \+\_\+resource\+\_\+type} & Name of the struct to retrieve. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_u_accounts_service_a48d82b93783ed2128e3978f799fa211d}\label{class_u_accounts_service_a48d82b93783ed2128e3978f799fa211d}} 
+\index{UAccountsService@{UAccountsService}!GetAccountModule@{GetAccountModule}}
+\index{GetAccountModule@{GetAccountModule}!UAccountsService@{UAccountsService}}
+\doxysubsubsection{\texorpdfstring{GetAccountModule()}{GetAccountModule()}}
+{\footnotesize\ttfamily void UAccounts\+Service\+::\+Get\+Account\+Module (\begin{DoxyParamCaption}\item[{FString}]{\+\_\+address,  }\item[{FString}]{\+\_\+module\+\_\+name,  }\item[{FString}]{\+\_\+ledger\+\_\+version,  }\item[{const FAptos\+Call\+Complete\+Dynamic\+Delegate \&}]{\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Retrieves an individual module from a given account at a specific ledger version. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+address} & The address for which the account data to be received. \\
+\hline
+{\em \+\_\+module\+\_\+name} & Name of the module to retrieve. \\
+\hline
+{\em \+\_\+ledger\+\_\+version} & A version for the ledger or the latest ledger version is retrieved if no version is specified. \\
+\hline
+{\em \+\_\+callback} & A callback to be executed when the \+\_\+callback is successful. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Unreal\+Aptos\+SDK/\+Plugins/\+Aptos\+SDK/\+Source/\+Aptos\+SDK/\+Private/\+Services/Accounts\+Service.\+h\end{DoxyCompactItemize}

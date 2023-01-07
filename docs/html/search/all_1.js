@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['encodesubmission_0',['EncodeSubmission',['../class_u_aptos_client.html#a8c76999a54553febac642f559a7ea8e8',1,'UAptosClient']]],
-  ['estimategasprice_1',['EstimateGasPrice',['../class_u_aptos_client.html#a891b9b76a3dc0ef6121836e949747d1c',1,'UAptosClient']]]
+  ['encodesubmission_0',['EncodeSubmission',['../class_u_transactions_service.html#aa97905a51835aec8777da2ef68f7ef13',1,'UTransactionsService']]],
+  ['estimategasprice_1',['EstimateGasPrice',['../class_u_transactions_service.html#a3d7a7fe46db493c752fa95a9a90e91fa',1,'UTransactionsService']]]
 ];

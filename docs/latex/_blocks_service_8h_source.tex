@@ -1,0 +1,25 @@
+\hypertarget{_blocks_service_8h_source}{}\doxysection{Blocks\+Service.\+h}
+\label{_blocks_service_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/BlocksService.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/BlocksService.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}AptosClientBase.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}AptosSchemas.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}BlocksService.generated.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{9 class APTOSSDK\_API \mbox{\hyperlink{class_u_blocks_service}{UBlocksService}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{20         UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
+\DoxyCodeLine{21         void GetBlocksByHeight(\textcolor{keywordtype}{int} \_block\_height, \textcolor{keywordtype}{bool} \_with\_transactions, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{28         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{29         \textcolor{keywordtype}{void} GetBlocksByVersion(\textcolor{keywordtype}{int} \_version, \textcolor{keywordtype}{bool} \_with\_transactions, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{30 \};}
+
+\end{DoxyCode}

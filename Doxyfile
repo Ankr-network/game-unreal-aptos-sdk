@@ -907,7 +907,13 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Public \
-                         D:/GitHub/GitHub/game-unreal-aptos-sdk/docs/docs_pages
+                         D:/GitHub/GitHub/game-unreal-aptos-sdk/docs/docs_pages \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/AccountsService.h \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/BlocksService.h \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/EventsService.h \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/GeneralService.h \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/TablesService.h \
+                         UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/TransactionsService.h
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

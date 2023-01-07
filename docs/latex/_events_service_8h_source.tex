@@ -1,0 +1,25 @@
+\hypertarget{_events_service_8h_source}{}\doxysection{Events\+Service.\+h}
+\label{_events_service_8h_source}\index{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/EventsService.h@{UnrealAptosSDK/Plugins/AptosSDK/Source/AptosSDK/Private/Services/EventsService.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}AptosClientBase.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}AptosSchemas.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}EventsService.generated.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8 UCLASS(Blueprintable, BlueprintType)}
+\DoxyCodeLine{9 class APTOSSDK\_API \mbox{\hyperlink{class_u_events_service}{UEventsService}} : public \mbox{\hyperlink{class_u_aptos_client_base}{UAptosClientBase}}}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     GENERATED\_UCLASS\_BODY()}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{22         UFUNCTION(BlueprintCallable, Category = \textcolor{stringliteral}{"{}APTOS SDK"{}})}
+\DoxyCodeLine{23         void GetEventsByCreationNumber(FString \_address, FString \_creation\_number, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{33         UFUNCTION(BlueprintCallable, Category = "{}APTOS SDK"{})}
+\DoxyCodeLine{34         \textcolor{keywordtype}{void} GetEventsByEventHandle(FString \_address, FString \_event\_handle, FString \_field\_name, \textcolor{keywordtype}{int} \_limit, FString \_start, const FAptosCallCompleteDynamicDelegate\& \_callback);}
+\DoxyCodeLine{35 \};}
+
+\end{DoxyCode}
