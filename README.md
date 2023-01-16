@@ -20,13 +20,23 @@ How to claim a token which was offered?
 
 How to cancel an offered token?
 
+Before proceeding with anything else lets understand how transactions are submitted to the Aptos Blockchain.
 
 ## SUBMIT A TRANSACTION
 These are the steps to submit a transaction in Aptos.
 
-1. Create a raw transaction (encode submission request) to be sent to Aptos for (BCS) serialization (Skip this step, if you have BCS plugin avaiable to do it locally).
-2. Call EncodeSubmission function with the encode submission request created to get a BCS serialized message. (Skip this step, if you did "Step 1" locally).
-3. Sign the BCS serialized message using the SignTransaction function.
+1. To create a raw transaction we create an [Encode Submission Request](https://fullnode.devnet.aptoslabs.com/v1/spec#/schemas/EncodeSubmissionRequest) using GetEncodeSubmissionRequest function having the following variables:
+
+- sender
+- sequence_number
+- max_gas_amount
+- gas_unit_price
+- expiration_timestamp_secs
+- payload -> { type, function, type_arguments, arguments }
+- secondary_signers
+
+2. Call [Encode Submission](https://fullnode.devnet.aptoslabs.com/v1/spec#/operations/encode_submission) with the above request as a body to get a BCS (Binary Canonical Serialization) message.
+3. Sign the BCS message using SignMessage function to get a signature.
 4. Create a transaction signature by calling GetTransactionSignature.
 5. Create a submit transaction request by calling GetSubmitTransactionRequest.
 6. Call SubmitTransaction with the submit transaction request created to get the tranaction hash.
