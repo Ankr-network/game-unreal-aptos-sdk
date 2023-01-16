@@ -22,6 +22,8 @@ How to cancel an offered token?
 
 Before proceeding with anything else lets understand how transactions are submitted to the Aptos Blockchain.
 
+Names such as 'Alice' or 'Bob' used in this documentation are used for demonstration purposes.
+
 ## SUBMIT A TRANSACTION
 These are the steps to submit a transaction in Aptos.
 
