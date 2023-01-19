@@ -113,11 +113,11 @@ std::vector<uint8_t> MathHelper::HexToBytes(const std::string& hex)
 	return bytes;
 }
 
-std::vector<uint8_t> MathHelper::UInt64ToBytes(uint64 integer)
+std::vector<uint8_t> MathHelper::UInt64ToBytes(FUInt128 integer)
 {
-	uint64 i = integer;
-	uint8_t b[sizeof(uint64)];
-	(uint64&)b = i;
+	FUInt128 i = integer;
+	uint8_t b[sizeof(FUInt128)];
+	(FUInt128&)b = i;
 
 	std::vector<uint8_t> vctr;
 	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
@@ -128,6 +128,55 @@ std::vector<uint8_t> MathHelper::UInt64ToBytes(uint64 integer)
 
 	return vctr;
 }
+
+std::vector<uint8_t> MathHelper::UInt64ToBytes(uint64 integer)
+{
+	uint64 i = integer;
+	uint8_t b[sizeof(uint64)];
+	(uint64&)b = i;
+	
+	std::vector<uint8_t> vctr;
+	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
+	{
+		std::byte byte = std::byte(b[v]);
+		vctr.push_back(std::to_integer<uint8_t>(byte));
+	}
+
+	return vctr;
+}
+
+std::vector<uint8_t> MathHelper::UInt32ToBytes(uint32 integer)
+{
+	uint32 i = integer;
+	uint8_t b[sizeof(uint32)];
+	(uint32&)b = i;
+
+	std::vector<uint8_t> vctr;
+	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
+	{
+		std::byte byte = std::byte(b[v]);
+		vctr.push_back(std::to_integer<uint8_t>(byte));
+	}
+
+	return vctr;
+}
+
+std::vector<uint8_t> MathHelper::UInt16ToBytes(uint16 integer)
+{
+	uint16 i = integer;
+	uint8_t b[sizeof(uint16)];
+	(uint16&)b = i;
+
+	std::vector<uint8_t> vctr;
+	for (int v = 0; v < sizeof(b) / sizeof(b[0]); v++)
+	{
+		std::byte byte = std::byte(b[v]);
+		vctr.push_back(std::to_integer<uint8_t>(byte));
+	}
+
+	return vctr;
+}
+
 std::vector<uint8_t> MathHelper::UInt8ToBytes(uint8 integer)
 {
 	uint8 i = integer;

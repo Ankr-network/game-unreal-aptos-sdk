@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <cstddef>
+#include "Math/BigInt.h"
+#include "Math/Int128.h"
 
 class APTOSSDK_API MathHelper
 {
@@ -21,7 +23,10 @@ public:
     static void ApplyHexPrefix(std::string& value);
     static std::string BytesToHex(uint8_t* _array, int _size);
     static std::vector<uint8_t> HexToBytes(const std::string& hex);
+    static std::vector<uint8_t> UInt64ToBytes(FUInt128 integer);
     static std::vector<uint8_t> UInt64ToBytes(uint64 integer);
+    static std::vector<uint8_t> UInt32ToBytes(uint32 integer);
+    static std::vector<uint8_t> UInt16ToBytes(uint16 integer);
     static std::vector<uint8_t> UInt8ToBytes(uint8 integer);
 	static std::vector<uint8_t> UInt8PtrToUInt8Vector(uint8_t* bytes, int size);
     static TArray<uint8_t> UInt8VectorToTArray(std::vector<uint8_t>& _vector);
